@@ -96,8 +96,17 @@
 
 <body>
 
+<!-- SWITCH (YOU WERE MISSING THIS) -->
+<div class="switch" id="toggle">
+    <span></span>
+</div>
+
+<!-- LIGHT (YOU WERE MISSING THIS) -->
+<div class="light" id="light"></div>
+
+<!-- LOGIN BOX -->
 <div class="login-box" id="login">
-    <h2>Login</h2>
+    <h2 style="color:white;">Login</h2>
 
     <form action="/login" method="post">
         <input type="text" name="username" placeholder="Username" required>
@@ -111,7 +120,6 @@
         <p style="color:red;margin-top:10px;">{{ error }}</p>
     {% endif %}
 </div>
-
 
 <script>
 const toggle = document.getElementById("toggle");
@@ -137,5 +145,7 @@ toggle.onclick = () => {
     }
 };
 </script>
+
 </body>
+
 </html>
