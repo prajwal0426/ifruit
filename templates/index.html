@@ -28,34 +28,17 @@
         z-index: 5;
     }
 
-    .switch span {
-        display: block;
-        width: 40px;
-        height: 20px;
-        background: gray;
-        border-radius: 20px;
-        position: relative;
-    }
-
-    .switch span::after {
-        content: "";
-        width: 18px;
-        height: 18px;
-        background: white;
-        border-radius: 50%;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        transition: 0.3s;
-    }
-
-    .switch.on span {
-        background: #4caf50;
-    }
-
-    .switch.on span::after {
-        left: 21px;
-    }
+   .switch {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;   /* VERY IMPORTANT */
+}
 
     /* Spotlight */
     .light {
