@@ -1,0 +1,16 @@
+# Ignore environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+
+# Python cache (future use)
+__pycache__/
+*.pyc
+
+# Logs
+*.log
