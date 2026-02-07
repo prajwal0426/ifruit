@@ -101,22 +101,22 @@
 
 <body>
 
-<div class="switch" id="toggle">
-    <span></span>
-</div>
-
-<div class="light" id="light"></div>
-
 <div class="login-box" id="login">
     <h2>Login</h2>
-   <input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
 
-    <br><br>
-   <button onclick="checkLogin()">Login</button>
-<p id="msg" style="color:red;margin-top:10px;"></p>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
 
+        <br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;margin-top:10px;">{{ error }}</p>
+    {% endif %}
 </div>
+
 
 <script>
     const toggle = document.getElementById("toggle");
@@ -142,32 +142,6 @@
         }
     };
 
-    // LOGIN CHECK
-    function checkLogin() {
-        const user = document.getElementById("username").value.trim();
-        const pass = document.getElementById("password").value;
-        const msg = document.getElementById("msg");
-
-        if (user === "") {
-            msg.style.color = "red";
-            msg.innerText = "Username cannot be empty ❌";
-            return;
-        }
-
-        if (pass === "iamhear123") {
-            msg.style.color = "lightgreen";
-            msg.innerText = "Login Successful ✔";
-
-            // redirect and pass username
-            setTimeout(() => {
-                window.location.href = "home.html?user=" + encodeURIComponent(user);
-            }, 800);
-
-        } else {
-            msg.style.color = "red";
-            msg.innerText = "Wrong Password ❌";
-        }
-    }
 </script>
 </body>
 </html>
