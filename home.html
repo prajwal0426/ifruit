@@ -16,6 +16,17 @@
     </style>
 </head>
 <body>
-    <h1>Welcome, Mr. Unknown 👋</h1>
+   <body>
+    <h1 id="welcome"></h1>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const user = params.get("user");
+
+        document.getElementById("welcome").innerText =
+            "Welcome, " + (user ? user : "User") + " 👋";
+    </script>
+</body>
+
 </body>
 </html>

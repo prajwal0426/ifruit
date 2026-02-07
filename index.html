@@ -144,27 +144,30 @@
 
     // LOGIN CHECK
     function checkLogin() {
-        const user = document.getElementById("username").value;
+        const user = document.getElementById("username").value.trim();
         const pass = document.getElementById("password").value;
         const msg = document.getElementById("msg");
 
-        if (user === "mr.unknown" && pass === "iamhear123") {
+        if (user === "") {
+            msg.style.color = "red";
+            msg.innerText = "Username cannot be empty ❌";
+            return;
+        }
+
+        if (pass === "iamhear123") {
             msg.style.color = "lightgreen";
             msg.innerText = "Login Successful ✔";
 
-            // redirect after short delay
+            // redirect and pass username
             setTimeout(() => {
-                window.location.href = "home.html";
+                window.location.href = "home.html?user=" + encodeURIComponent(user);
             }, 800);
 
         } else {
             msg.style.color = "red";
-            msg.innerText = "Invalid Username or Password ❌";
+            msg.innerText = "Wrong Password ❌";
         }
     }
-
 </script>
-
-
 </body>
 </html>
