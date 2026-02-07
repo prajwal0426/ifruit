@@ -28,7 +28,7 @@
         z-index: 5;
     }
 
-   ..switch span {
+   .switch span {
     display: block;
     width: 40px;
     height: 20px;
@@ -71,16 +71,10 @@
 
     /* Login box */
     .login-box {
-        width: 280px;
-        padding: 25px;
-        background: #111;
-        color: white;
-        border-radius: 10px;
-        text-align: center;
-        opacity: 0;
-        z-index: 2;
-        transition: 0.4s;
-    }
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 2;
+}
 
     .login-box input {
         width: 90%;
@@ -120,29 +114,28 @@
 
 
 <script>
-    const toggle = document.getElementById("toggle");
-    const light = document.getElementById("light");
-    const login = document.getElementById("login");
+const toggle = document.getElementById("toggle");
+const light = document.getElementById("light");
+const login = document.getElementById("login");
 
-    let isOn = false;
+let isOn = false;
 
-    toggle.onclick = () => {
-        isOn = !isOn;
-        toggle.classList.toggle("on");
+toggle.onclick = () => {
+    isOn = !isOn;
+    toggle.classList.toggle("on");
 
-        if (isOn) {
-            light.style.display = "block";
-            login.style.opacity = "1";
+    if (isOn) {
+        light.style.display = "block";
+        login.style.opacity = "1";
 
-            const rect = login.getBoundingClientRect();
-            light.style.left = rect.left + rect.width / 2 - 190 + "px";
-            light.style.top = rect.top + rect.height / 2 - 190 + "px";
-        } else {
-            light.style.display = "none";
-            login.style.opacity = "0";
-        }
-    };
-
+        const rect = login.getBoundingClientRect();
+        light.style.left = rect.left + rect.width / 2 - 190 + "px";
+        light.style.top = rect.top + rect.height / 2 - 190 + "px";
+    } else {
+        light.style.display = "none";
+        login.style.opacity = "0";
+    }
+};
 </script>
 </body>
 </html>
