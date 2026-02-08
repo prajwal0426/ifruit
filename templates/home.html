@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background: #111;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+}
+
+.box {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+</style>
 </head>
+
 <body>
-   <body>
-    <h1 id="welcome"></h1>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const user = params.get("user");
-
-        document.getElementById("welcome").innerText =
-            "Welcome, " + (user ? user : "User") + " 👋";
-    </script>
-</body>
+<div class="box">
+    <h1>Welcome, {{ username }} 👋</h1>
+    <p>You have successfully logged in.</p>
+</div>
 
 </body>
 </html>
