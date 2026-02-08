@@ -2,33 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dark Login Switch</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-    /* Toggle switch */
-    .switch {
-        position: fixed;
-        right: 30px;
-        top: 50%;
-        background: #222;
-        border-radius: 20px;
-        padding: 6px;
-        cursor: pointer;
-        z-index: 5;
-    }
+/* Switch */
+.switch {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 9999;
+}
 
-   .switch span {
+.switch span {
     display: block;
     width: 40px;
     height: 20px;
@@ -58,61 +59,70 @@
 }
 
 
-    /* Spotlight */
-    .light {
-        position: fixed;
-        width: 380px;
-        height: 380px;
-        background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(0,0,0,0.95) 70%);
-        border-radius: 50%;
-        display: none;
-        z-index: 1;
-    }
+/* Spotlight */
+.light {
+    position: fixed;
+    width: 70vw;
+    height: 70vw;
+    max-width: 380px;
+    max-height: 380px;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(0,0,0,0.95) 70%);
+    border-radius: 50%;
+    display: none;
+    z-index: 1;
+}
 
-    /* Login box */
-    .login-box {
+/* Login box */
+.login-box {
+    width: 80vw;
+    max-width: 300px;
+    background: #111;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
     opacity: 0;
     transition: 0.4s;
     z-index: 2;
 }
 
-    .login-box input {
-        width: 90%;
-        padding: 8px;
-        margin: 10px 0;
-        background: #222;
-        border: none;
-        color: white;
-    }
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #222;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
 
-    .login-box button {
-        padding: 8px 20px;
-        background: white;
-        border: none;
-        cursor: pointer;
-    }
+.login-box button {
+    padding: 8px 20px;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SWITCH (YOU WERE MISSING THIS) -->
+<!-- Switch -->
 <div class="switch" id="toggle">
     <span></span>
 </div>
 
-<!-- LIGHT (YOU WERE MISSING THIS) -->
+<!-- Light -->
 <div class="light" id="light"></div>
 
-<!-- LOGIN BOX -->
+<!-- Login -->
 <div class="login-box" id="login">
     <h2 style="color:white;">Login</h2>
 
     <form action="/login" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
-
-        <br><br>
+   
+       <br><br>
         <button type="submit">Login</button>
     </form>
 
@@ -137,8 +147,8 @@ toggle.onclick = () => {
         login.style.opacity = "1";
 
         const rect = login.getBoundingClientRect();
-        light.style.left = rect.left + rect.width / 2 - 190 + "px";
-        light.style.top = rect.top + rect.height / 2 - 190 + "px";
+        light.style.left = rect.left + rect.width / 2 - light.offsetWidth / 2 + "px";
+        light.style.top  = rect.top  + rect.height / 2 - light.offsetHeight / 2 + "px";
     } else {
         light.style.display = "none";
         login.style.opacity = "0";
