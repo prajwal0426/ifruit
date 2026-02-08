@@ -5,7 +5,7 @@ app = Flask(__name__)
 PASSWORD = "123"
 
 @app.route("/")
-def login_page():
+def index():
     return render_template("index.html")
 
 @app.route("/login", methods=["POST"])
