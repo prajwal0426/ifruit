@@ -10,6 +10,7 @@ def index():
     return render_template("index.html")
 
 @app.route("/register", methods=["POST"])
+@app.route("/register", methods=["POST"])
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
@@ -21,7 +22,9 @@ def register():
         return render_template("index.html", error="User already exists")
 
     users[username] = password
-    return render_template("index.html", success="Registration successful! Please login.")
+
+    # ✅ Auto-login after register
+    return redirect(url_for("home", user=username))
 
 @app.route("/login", methods=["POST"])
 def login():
