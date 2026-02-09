@@ -58,7 +58,6 @@ body {
     left: 21px;
 }
 
-
 /* Spotlight */
 .light {
     position: fixed;
@@ -96,10 +95,11 @@ body {
 }
 
 .login-box button {
-    padding: 8px 20px;
+    padding: 8px 15px;
     background: white;
     border: none;
     cursor: pointer;
+    margin: 5px;
 }
 </style>
 </head>
@@ -114,27 +114,24 @@ body {
 <!-- Light -->
 <div class="light" id="light"></div>
 
-<!-- Login -->
+<!-- Login/Register -->
 <div class="login-box" id="login">
-    <h2 style="color:white;">Login</h2>
+    <h2 style="color:white;">Login / Register</h2>
 
-    <form action="/login" method="post">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-   
-       <br><br>
-        <button type="submit">Login</button>
-    </form>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
 
-    {% if error %}
-        <p style="color:red;margin-top:10px;">{{ error }}</p>
-    {% endif %}
+    <button onclick="register()">Register</button>
+    <button onclick="loginUser()">Login</button>
+
+    <p id="message" style="margin-top:10px;"></p>
 </div>
 
 <script>
 const toggle = document.getElementById("toggle");
 const light = document.getElementById("light");
-const login = document.getElementById("login");
+const loginBox = document.getElementById("login");
+const msg = document.getElementById("message");
 
 let isOn = false;
 
@@ -144,16 +141,54 @@ toggle.onclick = () => {
 
     if (isOn) {
         light.style.display = "block";
-        login.style.opacity = "1";
+        loginBox.style.opacity = "1";
 
-        const rect = login.getBoundingClientRect();
+        const rect = loginBox.getBoundingClientRect();
         light.style.left = rect.left + rect.width / 2 - light.offsetWidth / 2 + "px";
         light.style.top  = rect.top  + rect.height / 2 - light.offsetHeight / 2 + "px";
     } else {
         light.style.display = "none";
-        login.style.opacity = "0";
+        loginBox.style.opacity = "0";
     }
 };
+
+// Register user
+function register() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (!user || !pass) {
+        msg.style.color = "red";
+        msg.textContent = "Please fill all fields";
+        return;
+    }
+
+    if (localStorage.getItem(user)) {
+        msg.style.color = "red";
+        msg.textContent = "User already exists";
+        return;
+    }
+
+    localStorage.setItem(user, pass);
+    msg.style.color = "lightgreen";
+    msg.textContent = "Registration successful!";
+}
+
+// Login user
+function loginUser() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    const storedPass = localStorage.getItem(user);
+
+    if (storedPass === pass) {
+        msg.style.color = "lightgreen";
+        msg.textContent = "Login successful!";
+    } else {
+        msg.style.color = "red";
+        msg.textContent = "Invalid username or password";
+    }
+}
 </script>
 
 </body>
