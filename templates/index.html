@@ -116,22 +116,41 @@ body {
 
 <!-- Login/Register -->
 <div class="login-box" id="login">
-    <h2 style="color:white;">Login / Register</h2>
+    <h2 style="color:white;">Login</h2>
 
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
+    <!-- LOGIN FORM -->
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
 
-    <button onclick="register()">Register</button>
-    <button onclick="loginUser()">Login</button>
+    <hr style="margin:15px 0; border-color:#333;">
 
-    <p id="message" style="margin-top:10px;"></p>
+    <h2 style="color:white;">Register</h2>
+
+    <!-- REGISTER FORM -->
+    <form action="/register" method="post">
+        <input type="text" name="username" placeholder="New Username" required>
+        <input type="password" name="password" placeholder="New Password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <!-- Flask Messages -->
+    {% if error %}
+        <p style="color:red; margin-top:10px;">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+        <p style="color:lightgreen; margin-top:10px;">{{ success }}</p>
+    {% endif %}
 </div>
 
 <script>
 const toggle = document.getElementById("toggle");
 const light = document.getElementById("light");
 const loginBox = document.getElementById("login");
-const msg = document.getElementById("message");
+
 
 let isOn = false;
 
@@ -152,43 +171,7 @@ toggle.onclick = () => {
     }
 };
 
-// Register user
-function register() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
 
-    if (!user || !pass) {
-        msg.style.color = "red";
-        msg.textContent = "Please fill all fields";
-        return;
-    }
-
-    if (localStorage.getItem(user)) {
-        msg.style.color = "red";
-        msg.textContent = "User already exists";
-        return;
-    }
-
-    localStorage.setItem(user, pass);
-    msg.style.color = "lightgreen";
-    msg.textContent = "Registration successful!";
-}
-
-// Login user
-function loginUser() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-
-    const storedPass = localStorage.getItem(user);
-
-    if (storedPass === pass) {
-        msg.style.color = "lightgreen";
-        msg.textContent = "Login successful!";
-    } else {
-        msg.style.color = "red";
-        msg.textContent = "Invalid username or password";
-    }
-}
 </script>
 
 </body>
