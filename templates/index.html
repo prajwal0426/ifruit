@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>i frut </title>
+<title>iFruit | Login</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -17,7 +21,7 @@ body {
     overflow: hidden;
 }
 
-/* Switch */
+/* ================= SWITCH ================= */
 .switch {
     position: fixed;
     right: 20px;
@@ -58,7 +62,7 @@ body {
     left: 21px;
 }
 
-/* Spotlight */
+/* ================= SPOTLIGHT ================= */
 .light {
     position: fixed;
     width: 70vw;
@@ -71,17 +75,22 @@ body {
     z-index: 1;
 }
 
-/* Login box */
+/* ================= LOGIN BOX ================= */
 .login-box {
-    width: 80vw;
-    max-width: 300px;
+    width: 90%;
+    max-width: 320px;
     background: #111;
     padding: 25px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
     opacity: 0;
     transition: 0.4s;
     z-index: 2;
+}
+
+.login-box h2 {
+    color: white;
+    margin-bottom: 10px;
 }
 
 .login-box input {
@@ -91,59 +100,88 @@ body {
     background: #222;
     border: none;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .login-box button {
-    padding: 8px 15px;
+    width: 100%;
+    padding: 10px;
     background: white;
     border: none;
     cursor: pointer;
-    margin: 5px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.login-box hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 20px 0;
+}
+
+/* ================= GOOGLE BUTTON ================= */
+.google-btn {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 18px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Switch -->
+<!-- SWITCH -->
 <div class="switch" id="toggle">
     <span></span>
 </div>
 
-<!-- Light -->
+<!-- SPOTLIGHT -->
 <div class="light" id="light"></div>
 
-<!-- Login/Register -->
-<div class="login-box" id="login">
-    <h2 style="color:white;">Login</h2>
+<!-- LOGIN / REGISTER BOX -->
+ <div class="login-box" id="login">
 
-    <!-- LOGIN FORM -->
+    <!-- LOGIN -->
+    <h2>Login</h2>
     <form action="/login" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
 
-    <hr style="margin:15px 0; border-color:#333;">
+    <hr>
 
-    <h2 style="color:white;">Register</h2>
-
-    <!-- REGISTER FORM -->
+    <!-- REGISTER -->
+    <h2>Register</h2>
     <form action="/register" method="post">
         <input type="text" name="username" placeholder="New Username" required>
         <input type="password" name="password" placeholder="New Password" required>
-        <button type="submit">Register</button>
+        <button type="submit">Create Account</button>
     </form>
 
-    <!-- Flask Messages -->
+    <hr>
+
+    <!-- GOOGLE SIGN UP -->
+    <div class="google-btn" onclick="location.href='/login/google'">
+        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
+        <span>Sign up with Google</span>
+    </div>
+
+    <!-- MESSAGES -->
     {% if error %}
         <p style="color:red; margin-top:10px;">{{ error }}</p>
     {% endif %}
 
-    {% if success %}
-        <p style="color:lightgreen; margin-top:10px;">{{ success }}</p>
-    {% endif %}
+
 </div>
 
 <script>
