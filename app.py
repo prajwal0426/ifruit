@@ -1,15 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+import sqlite3
 
 app = Flask(__name__)
+app.secret_key = "secret123"  # needed for sessions
 
-# Temporary user storage (username: password)
-users = {}
+
+# Database helper
+def get_db():
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/register", methods=["POST"])
+
 @app.route("/register", methods=["POST"])
 def register():
     username = request.form.get("username")
@@ -18,28 +25,52 @@ def register():
     if not username or not password:
         return render_template("index.html", error="All fields are required")
 
-    if username in users:
+    db = get_db()
+
+    try:
+        db.execute(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            (username, password)
+        )
+        db.commit()
+    except:
         return render_template("index.html", error="User already exists")
 
-    users[username] = password
+    # auto login
+    session["username"] = username
+    return redirect("/home")
 
-    # ✅ Auto-login after register
-    return redirect(url_for("home", user=username))
 
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form.get("username")
     password = request.form.get("password")
 
-    if username in users and users[username] == password:
-        return redirect(url_for("home", user=username))
-    else:
-        return render_template("index.html", error="Invalid username or password")
+    db = get_db()
+    user = db.execute(
+        "SELECT * FROM users WHERE username = ? AND password = ?",
+        (username, password)
+    ).fetchone()
+
+    if user:
+        session["username"] = username
+        return redirect("/home")
+
+    return render_template("index.html", error="Invalid username or password")
+
 
 @app.route("/home")
 def home():
-    user = request.args.get("user")
-    return render_template("home.html", username=user)
+    if "username" not in session:
+        return redirect("/")
+    return render_template("home.html", username=session["username"])
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(debug=True)
