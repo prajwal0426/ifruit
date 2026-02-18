@@ -12,9 +12,6 @@ of the screen remains dark.
 - Fixed password authentication
 - Redirects to a welcome page after login
 
-## 🔐 Login Rule
-- **Username:** Any value
-- **Password:** `iamhear123`
 
 ## 📁 Project Structure
 
