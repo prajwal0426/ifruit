@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-import sqlite3
+from authlib.integrations.flask_client import OAuth
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 app.secret_key = "secret123"  # needed for sessions
