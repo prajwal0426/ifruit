@@ -1,4 +1,5 @@
 Flask
-Authlib
+authlib
 python-dotenv
+requests
 gunicorn
