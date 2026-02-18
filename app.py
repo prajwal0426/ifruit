@@ -13,7 +13,7 @@ load_dotenv()
 # Flask app setup
 # -------------------------------------------------
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY")
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 
 # -------------------------------------------------
 # Database helper
@@ -37,8 +37,6 @@ google = oauth.register(
         "scope": "openid email profile"
     }
 )
-
-
 
 # -------------------------------------------------
 # Routes
@@ -97,17 +95,18 @@ def login_google():
 @app.route("/auth/google")
 def google_callback():
     token = google.authorize_access_token()
-    user_info = google.get("userinfo").json()
 
-    email = user_info["email"]
+    # ✅ FIXED: FULL userinfo URL
+    user_info = google.get(
+        "https://www.googleapis.com/oauth2/v2/userinfo"
+    ).json()
+
+    email = user_info.get("email")
+
+    if not email:
+        return redirect("/")
 
     session["username"] = email
-    return redirect("/home")
-
-
-    # Login user using Google name
-    session["username"] = user_info["name"]
-
     return redirect("/home")
 
 # ---------------- Home ----------------
