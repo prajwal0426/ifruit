@@ -99,6 +99,12 @@ def google_callback():
     token = google.authorize_access_token()
     user_info = google.get("userinfo").json()
 
+    email = user_info["email"]
+
+    session["username"] = email
+    return redirect("/home")
+
+
     # Login user using Google name
     session["username"] = user_info["name"]
 
