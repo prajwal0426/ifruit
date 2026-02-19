@@ -9,21 +9,15 @@ cursor = conn.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    -- Auth
-    username TEXT UNIQUE NOT NULL,
+    username TEXT UNIQUE,
     email TEXT UNIQUE,
     password TEXT,
     google_id TEXT UNIQUE,
-
-    -- Profile
+    avatar TEXT,
     mobile TEXT,
     dob TEXT,
-    address TEXT,
-    avatar TEXT,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+    address TEXT
+);
 """)
 
 conn.commit()
