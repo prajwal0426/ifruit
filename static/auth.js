@@ -1,38 +1,52 @@
-const spotlight = document.getElementById("spotlight");
-const switchBtn = document.getElementById("lightSwitch");
+const toggle = document.getElementById("toggle");
 const authBox = document.getElementById("authBox");
+const spotlight = document.getElementById("spotlight");
 
-const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-const title = document.getElementById("formTitle");
+const form = document.getElementById("authForm");
+const title = document.getElementById("title");
+const submitBtn = document.getElementById("submitBtn");
+const modeBtn = document.getElementById("modeBtn");
+const strengthText = document.getElementById("strengthText");
 
 let isOn = false;
+let isRegister = false;
 
-switchBtn.onclick = () => {
-  isOn = !isOn;
-  switchBtn.classList.toggle("on");
-  spotlight.classList.toggle("on");
-  authBox.classList.toggle("show");
+/* Toggle popup + spotlight */
+toggle.onclick = () => {
+    isOn = !isOn;
+    toggle.classList.toggle("on");
+    authBox.classList.toggle("show");
+
+    spotlight.classList.toggle("active", isOn);
 };
 
-/* REGISTER TOGGLE */
-function showRegister() {
-  loginForm.style.display = "none";
-  registerForm.style.display = "block";
-  title.innerText = "Register";
+/* Switch Login ↔ Register */
+function switchMode() {
+    isRegister = !isRegister;
+
+    if (isRegister) {
+        title.innerText = "Register";
+        submitBtn.innerText = "Create Account";
+        form.action = "/register";
+        modeBtn.innerText = "Back to Login";
+    } else {
+        title.innerText = "Login";
+        submitBtn.innerText = "Login";
+        form.action = "/login";
+        modeBtn.innerText = "Register";
+    }
 }
 
-function showLogin() {
-  registerForm.style.display = "none";
-  loginForm.style.display = "block";
-  title.innerText = "Login";
-}
-
-/* AUTO OFF ON ERROR */
-const error = document.querySelector(".error");
-if (error) {
-  spotlight.classList.remove("on");
-  switchBtn.classList.remove("on");
-  authBox.classList.remove("show");
-  isOn = false;
+/* Password strength */
+function checkStrength(pwd) {
+    if (pwd.length < 4) {
+        strengthText.innerText = "Weak";
+        strengthText.style.color = "red";
+    } else if (pwd.length < 8) {
+        strengthText.innerText = "Medium";
+        strengthText.style.color = "orange";
+    } else {
+        strengthText.innerText = "Strong";
+        strengthText.style.color = "lightgreen";
+    }
 }
