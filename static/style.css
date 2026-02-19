@@ -27,7 +27,12 @@ body {
     );
     clip-path: polygon(50% 0%, 70% 100%, 30% 100%);
     animation: glow 3s infinite alternate;
+
+    /* 👇 NEW */
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
+
 
 @keyframes glow {
     from { opacity: 0.6; }
