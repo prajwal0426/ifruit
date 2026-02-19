@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
-<body style="background:#111;color:white">
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
 
 <h2>Profile</h2>
 
-{% if user.avatar.startswith('avatars/') %}
-    <img src="{{ url_for('static', filename=user.avatar) }}" width="100">
-{% else %}
-    <img src="{{ url_for('uploads', filename=user.avatar) }}" width="100">
-{% endif %}
-
-<form method="POST" action="/profile/update" enctype="multipart/form-data">
-    <input name="mobile" placeholder="Mobile" value="{{ user.mobile or '' }}">
-    <input name="dob" type="date" value="{{ user.dob or '' }}">
-    <input name="address" placeholder="Address" value="{{ user.address or '' }}">
-    <input type="file" name="avatar">
-    <button>Save</button>
+<form action="/profile/update" method="post" enctype="multipart/form-data">
+  <input name="mobile" placeholder="Mobile" value="{{user.mobile}}">
+  <input name="dob" type="date" value="{{user.dob}}">
+  <textarea name="address">{{user.address}}</textarea>
+  <input type="file" name="avatar">
+  <button>Save</button>
 </form>
 
 <a href="/home">Back</a>
