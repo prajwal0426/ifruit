@@ -1,19 +1,12 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 body {
   margin: 0;
   height: 100vh;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #000;
+  font-family: Arial, sans-serif;
   overflow: hidden;
 }
 
-/* TOP SPOTLIGHT */
+/* 🔺 TRIANGLE LIGHT */
 #spotlight {
   position: fixed;
   top: 0;
@@ -22,61 +15,54 @@ body {
   height: 0;
   border-left: 50vw solid transparent;
   border-right: 50vw solid transparent;
-  border-top: 70vh solid rgba(255, 215, 0, 0.55);
+  border-top: 70vh solid rgba(255, 215, 0, 0.6);
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
+  z-index: 1;
 }
 
 #spotlight.on {
   opacity: 1;
 }
 
-
-/* AUTH CARD */
-.auth-card {
+/* 📦 LOGIN BOX */
+.login-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%) scale(0.9);
   width: 320px;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  color: white;
+  background: rgba(20, 20, 20, 0.9);
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.35s ease;
   z-index: 2;
 }
 
-h2 {
-  margin-bottom: 15px;
+.login-box.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-input {
+.login-box input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 12px;
+  margin: 10px 0;
   border-radius: 6px;
   border: none;
 }
 
-button {
+.login-box button {
   width: 100%;
   padding: 10px;
+  margin-top: 10px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
-}
-
-button.secondary {
-  background: transparent;
-  color: #ccc;
-  margin-top: 10px;
-}
-
-.google-btn {
-  display: block;
-  text-align: center;
-  margin-top: 15px;
-  color: #9f6cff;
-  text-decoration: none;
 }
 
 .error {
@@ -84,19 +70,14 @@ button.secondary {
   margin-top: 10px;
 }
 
-/* HIDDEN */
-.hidden {
-  display: none;
-}
-
-/* ON OFF SWITCH */
+/* 🔘 SWITCH (BOTTOM RIGHT) */
 .switch {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 52px;
   height: 28px;
-  background: #555;
+  background: #444;
   border-radius: 20px;
   cursor: pointer;
   z-index: 999;
