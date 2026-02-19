@@ -24,6 +24,22 @@ def get_db():
     return conn
 
 # -------------------------------------------------
+# Initialize database (IMPORTANT for Render)
+# -------------------------------------------------
+def init_db():
+    db = get_db()
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE,
+            password TEXT
+        )
+    """)
+    db.commit()
+
+init_db()
+
+# -------------------------------------------------
 # Google OAuth setup
 # -------------------------------------------------
 oauth = OAuth(app)
@@ -33,9 +49,7 @@ google = oauth.register(
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
     client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
     server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
-    client_kwargs={
-        "scope": "openid email profile"
-    }
+    client_kwargs={"scope": "openid email profile"},
 )
 
 # -------------------------------------------------
@@ -47,8 +61,11 @@ def index():
     return render_template("index.html")
 
 # ---------------- Register ----------------
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "GET":
+        return redirect("/")
+
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -59,7 +76,7 @@ def register():
     try:
         db.execute(
             "INSERT INTO users (username, password) VALUES (?, ?)",
-            (username, password)
+            (username, password),
         )
         db.commit()
     except sqlite3.IntegrityError:
@@ -69,15 +86,18 @@ def register():
     return redirect("/home")
 
 # ---------------- Login ----------------
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "GET":
+        return redirect("/")
+
     username = request.form.get("username")
     password = request.form.get("password")
 
     db = get_db()
     user = db.execute(
         "SELECT * FROM users WHERE username = ? AND password = ?",
-        (username, password)
+        (username, password),
     ).fetchone()
 
     if user:
@@ -94,15 +114,15 @@ def login_google():
 
 @app.route("/auth/google")
 def google_callback():
-    token = google.authorize_access_token()
+    google.authorize_access_token()
 
-    # ✅ FIXED: FULL userinfo URL
+  
     user_info = google.get(
         "https://www.googleapis.com/oauth2/v2/userinfo"
     ).json()
-
+   
     email = user_info.get("email")
-
+   
     if not email:
         return redirect("/")
 
@@ -123,8 +143,8 @@ def logout():
     return redirect("/")
 
 # -------------------------------------------------
-# Run app
+# Run app (Local + Render compatible)
 # -------------------------------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
-
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
