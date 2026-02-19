@@ -2,37 +2,39 @@ const toggle = document.getElementById("toggle");
 const authBox = document.getElementById("authBox");
 const spotlight = document.getElementById("spotlight");
 
+const form = document.getElementById("authForm");
+const title = document.getElementById("title");
+const submitBtn = document.getElementById("submitBtn");
+const modeBtn = document.getElementById("modeBtn");
+const strengthText = document.getElementById("strengthText");
 
 let isOn = false;
+let isRegister = false;
 
-
-
-
-
-
+/* Toggle popup + spotlight */
 toggle.onclick = () => {
     isOn = !isOn;
-
+    
     toggle.classList.toggle("on");
     authBox.classList.toggle("show");
 
-    if (isOn) {
-        spotlight.classList.add("active");   // 🔆 show spotlight
-    } else {
-        spotlight.classList.remove("active"); // 🌑 hide spotlight
-    }
+    spotlight.classList.toggle("active", isOn);
 };
 
-/* Switch login/register */
+/* Switch Login ↔ Register */
 function switchMode() {
     isRegister = !isRegister;
 
     if (isRegister) {
         title.innerText = "Register";
+        submitBtn.innerText = "Create Account";
         form.action = "/register";
+        modeBtn.innerText = "Back to Login";
     } else {
         title.innerText = "Login";
+        submitBtn.innerText = "Login";
         form.action = "/login";
+        modeBtn.innerText = "Register";
     }
 }
 
