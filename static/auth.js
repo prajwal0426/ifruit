@@ -1,19 +1,22 @@
 const spotlight = document.getElementById("spotlight");
-const lightSwitch = document.getElementById("lightSwitch");
+const switchBtn = document.getElementById("lightSwitch");
+const loginBox = document.getElementById("loginBox");
 
-let lightOn = false;
+let isOn = false;
 
-/* TOGGLE LIGHT */
-lightSwitch.onclick = () => {
-  lightOn = !lightOn;
-  lightSwitch.classList.toggle("on");
+switchBtn.onclick = () => {
+  isOn = !isOn;
+
+  switchBtn.classList.toggle("on");
   spotlight.classList.toggle("on");
+  loginBox.classList.toggle("show");
 };
 
-/* AUTO TURN OFF IF ERROR EXISTS */
+/* AUTO TURN OFF IF ERROR */
 const error = document.querySelector(".error");
 if (error) {
   spotlight.classList.remove("on");
-  lightSwitch.classList.remove("on");
-  lightOn = false;
+  switchBtn.classList.remove("on");
+  loginBox.classList.remove("show");
+  isOn = false;
 }
