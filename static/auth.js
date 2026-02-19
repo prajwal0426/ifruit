@@ -1,7 +1,6 @@
 const toggle = document.getElementById("toggle");
 const authBox = document.getElementById("authBox");
 const spotlight = document.getElementById("spotlight");
-
 const form = document.getElementById("authForm");
 const title = document.getElementById("title");
 const submitBtn = document.getElementById("submitBtn");
@@ -11,42 +10,50 @@ const strengthText = document.getElementById("strengthText");
 let isOn = false;
 let isRegister = false;
 
-/* Toggle popup + spotlight */
+/* 🔘 Toggle popup + spotlight */
 toggle.onclick = () => {
-    isOn = !isOn;
-    toggle.classList.toggle("on");
-    authBox.classList.toggle("show");
-
-    spotlight.classList.toggle("active", isOn);
+  isOn = !isOn;
+  toggle.classList.toggle("on");
+  authBox.classList.toggle("show");
+  spotlight.classList.toggle("active", isOn);
 };
 
-/* Switch Login ↔ Register */
+/* 🔁 Switch Login ↔ Register */
 function switchMode() {
-    isRegister = !isRegister;
+  isRegister = !isRegister;
 
-    if (isRegister) {
-        title.innerText = "Register";
-        submitBtn.innerText = "Create Account";
-        form.action = "/register";
-        modeBtn.innerText = "Back to Login";
-    } else {
-        title.innerText = "Login";
-        submitBtn.innerText = "Login";
-        form.action = "/login";
-        modeBtn.innerText = "Register";
-    }
+  if (isRegister) {
+    title.innerText = "Register";
+    submitBtn.innerText = "Create Account";
+    form.action = "/register";
+    modeBtn.innerText = "Back to Login";
+  } else {
+    title.innerText = "Login";
+    submitBtn.innerText = "Login";
+    form.action = "/login";
+    modeBtn.innerText = "Register";
+  }
 }
 
-/* Password strength */
+/* 🔐 Password strength */
 function checkStrength(pwd) {
-    if (pwd.length < 4) {
-        strengthText.innerText = "Weak";
-        strengthText.style.color = "red";
-    } else if (pwd.length < 8) {
-        strengthText.innerText = "Medium";
-        strengthText.style.color = "orange";
-    } else {
-        strengthText.innerText = "Strong";
-        strengthText.style.color = "lightgreen";
-    }
+  if (pwd.length < 4) {
+    strengthText.innerText = "Weak";
+    strengthText.style.color = "red";
+  } else if (pwd.length < 8) {
+    strengthText.innerText = "Medium";
+    strengthText.style.color = "orange";
+  } else {
+    strengthText.innerText = "Strong";
+    strengthText.style.color = "lightgreen";
+  }
+}
+
+/* ❌ Auto OFF on error */
+const error = document.querySelector(".error");
+if (error) {
+  spotlight.classList.remove("active");
+  toggle.classList.remove("on");
+  authBox.classList.remove("show");
+  isOn = false;
 }
