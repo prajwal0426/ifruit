@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html>
-<body style="background:#111;color:white">
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
 
-<header>
-    <a href="/profile" class="profile-mini">
-        {% if user.avatar.startswith('avatars/') %}
-            <img src="{{ url_for('static', filename=user.avatar) }}" class="avatar-img">
-        {% else %}
-            <img src="{{ url_for('uploads', filename=user.avatar) }}" class="avatar-img">
-        {% endif %}
-        {{ short_name }}
-    </a>
-    <a href="/logout">Logout</a>
-</header>
+<div class="profile-btn" onclick="location.href='/profile'">
+  {{ user.username[:7] }}
+</div>
 
-<h1 style="text-align:center">Welcome {{ user.username }} 👋</h1>
+<h1>Welcome {{ user.username }}</h1>
+<a href="/logout">Logout</a>
 
 </body>
 </html>
