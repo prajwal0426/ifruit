@@ -1,19 +1,18 @@
-let isRegister = false;
+const spotlight = document.getElementById("spotlight");
+const loginBox = document.getElementById("loginBox");
+const registerBox = document.getElementById("registerBox");
 
-function switchMode() {
-    isRegister = !isRegister;
-    document.getElementById("title").innerText = isRegister ? "Register" : "Login";
-    document.getElementById("submitBtn").innerText = isRegister ? "Create" : "Login";
-    document.getElementById("authForm").action = isRegister ? "/register" : "/login";
-    document.getElementById("modeBtn").innerText = isRegister ? "Back to Login" : "Register";
+// spotlight ON only when page loads
+window.onload = () => {
+  spotlight.classList.add("on");
+};
+
+function openRegister() {
+  loginBox.classList.add("hidden");
+  registerBox.classList.remove("hidden");
 }
 
-function checkStrength(pwd) {
-    let s = document.getElementById("strengthText");
-    if (pwd.length < 4) s.innerText = "Weak";
-    else if (pwd.length < 8) s.innerText = "Medium";
-    else s.innerText = "Strong";
-}
-function toggleRegister() {
-  document.getElementById("registerForm").toggleAttribute("hidden");
+function closeRegister() {
+  registerBox.classList.add("hidden");
+  loginBox.classList.remove("hidden");
 }
