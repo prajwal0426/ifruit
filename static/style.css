@@ -175,3 +175,35 @@ body {
   color: red;
   margin-top: 10px;
 }
+
+/* ============================= */
+/* ✅ ADDED: 👁️ Password eye wrapper */
+/* ============================= */
+
+.password-wrapper {
+  position: relative;
+}
+
+/* eye icon */
+.eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* 🙈 eye closed (default) */
+.eye.closed {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/159/159604.png");
+}
+
+/* 👁️ eye open */
+.eye.open {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/159/159078.png");
+}
