@@ -8,50 +8,44 @@
 </head>
 <body>
 
-<!-- 🔺 SMOOTH TRIANGLE LIGHT -->
-<div id="spotlight"></div>
+<!-- 🔺 Spotlight -->
+<div class="spotlight" id="spotlight"></div>
 
-<!-- 📦 LOGIN / REGISTER BOX -->
+<!-- 🔘 Toggle -->
+<div class="switch" id="toggle">
+  <span></span>
+</div>
+
+<!-- 🧊 Auth Box -->
 <div class="auth-box" id="authBox">
 
-  <h2 id="formTitle">Login</h2>
+  <h2 id="title">Login</h2>
 
-  <!-- LOGIN FORM -->
-  <form id="loginForm" action="/login" method="post">
+  <form id="authForm" method="POST" action="/login">
     <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="password" placeholder="Password"
+           required oninput="checkStrength(this.value)">
 
-    <div class="btn-row">
-      <button type="submit">Login</button>
-      <button type="button" onclick="showRegister()">Register</button>
+    <div class="strength" id="strengthText"></div>
+
+    <div class="actions">
+      <button type="submit" id="submitBtn" class="login-btn">Login</button>
+      <button type="button" id="modeBtn"
+              class="register-btn" onclick="switchMode()">
+        Register
+      </button>
     </div>
   </form>
 
-  <!-- REGISTER FORM -->
-  <form id="registerForm" action="/register" method="post">
-    <input type="text" name="username" placeholder="New Username" required>
-    <input type="password" name="password" placeholder="New Password" required>
-
-    <div class="btn-row">
-      <button type="submit">Create</button>
-      <button type="button" onclick="showLogin()">Back</button>
-    </div>
-  </form>
-
-  <!-- GOOGLE LOGIN -->
   <a href="/login/google" class="google-btn">
     <img src="https://developers.google.com/identity/images/g-logo.png">
-    Sign in with Google
+    Continue with Google
   </a>
 
   {% if error %}
-    <p class="error">{{ error }}</p>
+    <div class="error">{{ error }}</div>
   {% endif %}
-</div>
 
-<!-- 🔘 SWITCH (BOTTOM RIGHT) -->
-<div class="switch" id="lightSwitch">
-  <div class="knob"></div>
 </div>
 
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
