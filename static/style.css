@@ -6,71 +6,101 @@ body {
   overflow: hidden;
 }
 
-/* 🔺 TRIANGLE LIGHT */
+/* 🔺 SMOOTH TRIANGLE LIGHT (FROM TOP) */
 #spotlight {
   position: fixed;
-  top: 0;
+  top: -70vh;
   left: 50%;
   width: 0;
   height: 0;
   border-left: 50vw solid transparent;
   border-right: 50vw solid transparent;
-  border-top: 70vh solid rgba(255, 215, 0, 0.6);
+  border-bottom: 70vh solid rgba(255, 215, 0, 0.65);
   transform: translateX(-50%);
   opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+  transition: all 0.6s ease;
   z-index: 1;
 }
 
 #spotlight.on {
+  top: 0;
   opacity: 1;
 }
 
-/* 📦 LOGIN BOX */
-.login-box {
+/* 📦 AUTH BOX */
+.auth-box {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -55%) scale(0.9);
   width: 320px;
-  background: rgba(20, 20, 20, 0.9);
+  background: rgba(15, 15, 15, 0.92);
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: center;
   opacity: 0;
-  transition: all 0.35s ease;
+  transition: 0.4s ease;
   z-index: 2;
 }
 
-.login-box.show {
+.auth-box.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
 
-.login-box input {
+.auth-box h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.auth-box input {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 8px 0;
   border-radius: 6px;
   border: none;
 }
 
-.login-box button {
-  width: 100%;
-  padding: 10px;
+/* BUTTON ROW */
+.btn-row {
+  display: flex;
+  gap: 10px;
   margin-top: 10px;
-  border-radius: 6px;
+}
+
+.btn-row button {
+  flex: 1;
+  padding: 10px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
 
+/* GOOGLE */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  text-decoration: none;
+  color: black;
+}
+
+.google-btn img {
+  width: 18px;
+}
+
+/* ERROR */
 .error {
   color: red;
   margin-top: 10px;
 }
 
-/* 🔘 SWITCH (BOTTOM RIGHT) */
+/* 🔘 SWITCH */
 .switch {
   position: fixed;
   bottom: 20px;
@@ -100,4 +130,9 @@ body {
 
 .switch.on .knob {
   left: 27px;
+}
+
+/* REGISTER FORM HIDDEN */
+#registerForm {
+  display: none;
 }
