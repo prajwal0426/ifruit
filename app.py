@@ -1,9 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
+from flask import (
+    Flask, render_template, request,
+    redirect, url_for, session,
+    send_from_directory
+)
 import sqlite3, os, random, uuid
+from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from authlib.integrations.flask_client import OAuth
 
 # -------------------------------------------------
 # Load env
@@ -11,17 +15,16 @@ from authlib.integrations.flask_client import OAuth
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_key")
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 
 # -------------------------------------------------
-# Config
+# Upload config
 # -------------------------------------------------
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024
-
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # -------------------------------------------------
@@ -47,17 +50,17 @@ def get_db():
 def init_db():
     db = get_db()
     db.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE,
-        email TEXT UNIQUE,
-        password TEXT,
-        google_id TEXT UNIQUE,
-        mobile TEXT,
-        dob TEXT,
-        address TEXT,
-        avatar TEXT
-    )
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE,
+            email TEXT UNIQUE,
+            password TEXT,
+            google_id TEXT UNIQUE,
+            mobile TEXT,
+            dob TEXT,
+            address TEXT,
+            avatar TEXT
+        )
     """)
     db.commit()
 
@@ -92,8 +95,11 @@ def index():
 # ---------------- Register ----------------
 @app.route("/register", methods=["POST"])
 def register():
-    username = request.form["username"]
-    password = request.form["password"]
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if not username or not password:
+        return render_template("index.html", error="All fields required")
 
     hashed = generate_password_hash(password)
     avatar = random_avatar()
@@ -108,15 +114,14 @@ def register():
     except sqlite3.IntegrityError:
         return render_template("index.html", error="User already exists")
 
-    user = db.execute("SELECT id FROM users WHERE username=?", (username,)).fetchone()
-    session["user_id"] = user["id"]
+    session["username"] = username
     return redirect("/home")
 
 # ---------------- Login ----------------
 @app.route("/login", methods=["POST"])
 def login():
-    username = request.form["username"]
-    password = request.form["password"]
+    username = request.form.get("username")
+    password = request.form.get("password")
 
     db = get_db()
     user = db.execute(
@@ -127,24 +132,25 @@ def login():
     if not user or not check_password_hash(user["password"], password):
         return render_template("index.html", error="Invalid credentials")
 
-    session["user_id"] = user["id"]
+    session["username"] = user["username"]
     return redirect("/home")
-
-
 
 # ---------------- Google Login ----------------
 @app.route("/login/google")
 def login_google():
-    return google.authorize_redirect(url_for("google_callback", _external=True))
+    redirect_uri = url_for("google_callback", _external=True)
+    return google.authorize_redirect(redirect_uri)
 
 @app.route("/auth/google")
 def google_callback():
     google.authorize_access_token()
-    info = google.get("https://www.googleapis.com/oauth2/v2/userinfo").json()
+    user_info = google.get(
+        "https://www.googleapis.com/oauth2/v2/userinfo"
+    ).json()
 
-    email = info["email"]
-    google_id = info["id"]
-    name = info["name"]
+    email = user_info.get("email")
+    google_id = user_info.get("id")
+    name = user_info.get("name")
 
     db = get_db()
     user = db.execute(
@@ -164,24 +170,19 @@ def google_callback():
         ))
         db.commit()
 
-        user = db.execute(
-            "SELECT * FROM users WHERE email=?",
-            (email,)
-        ).fetchone()
-
-    session["user_id"] = user["id"]
+    session["username"] = email
     return redirect("/home")
 
 # ---------------- Home ----------------
 @app.route("/home")
 def home():
-    if "user_id" not in session:
+    if "username" not in session:
         return redirect("/")
 
     db = get_db()
     user = db.execute(
-        "SELECT * FROM users WHERE id=?",
-        (session["user_id"],)
+        "SELECT * FROM users WHERE username=? OR email=?",
+        (session["username"], session["username"])
     ).fetchone()
 
     return render_template(
@@ -193,26 +194,26 @@ def home():
 # ---------------- Profile ----------------
 @app.route("/profile")
 def profile():
-    if "user_id" not in session:
+    if "username" not in session:
         return redirect("/")
 
     db = get_db()
     user = db.execute(
-        "SELECT * FROM users WHERE id=?",
-        (session["user_id"],)
+        "SELECT * FROM users WHERE username=? OR email=?",
+        (session["username"], session["username"])
     ).fetchone()
 
     return render_template("profile.html", user=user)
 
-# ---------------- Update Profile ----------------
+# ---------------- Profile Update ----------------
 @app.route("/profile/update", methods=["POST"])
 def update_profile():
-    if "user_id" not in session:
+    if "username" not in session:
         return redirect("/")
 
-    mobile = request.form["mobile"]
-    dob = request.form["dob"]
-    address = request.form["address"]
+    mobile = request.form.get("mobile")
+    dob = request.form.get("dob")
+    address = request.form.get("address")
 
     avatar_file = request.files.get("avatar")
     avatar_path = None
@@ -228,14 +229,20 @@ def update_profile():
         db.execute("""
             UPDATE users
             SET mobile=?, dob=?, address=?, avatar=?
-            WHERE id=?
-        """, (mobile, dob, address, avatar_path, session["user_id"]))
+            WHERE username=? OR email=?
+        """, (
+            mobile, dob, address, avatar_path,
+            session["username"], session["username"]
+        ))
     else:
         db.execute("""
             UPDATE users
             SET mobile=?, dob=?, address=?
-            WHERE id=?
-        """, (mobile, dob, address, session["user_id"]))
+            WHERE username=? OR email=?
+        """, (
+            mobile, dob, address,
+            session["username"], session["username"]
+        ))
 
     db.commit()
     return redirect("/profile")
@@ -252,5 +259,8 @@ def logout():
     return redirect("/")
 
 # -------------------------------------------------
+# Run app (PORT 10000 ✅)
+# -------------------------------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
