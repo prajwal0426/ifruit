@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -23,8 +23,20 @@
 
   <form id="authForm" method="POST" action="/login">
     <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password"
-           required oninput="checkStrength(this.value)">
+
+    <!-- ✅ ADDED password wrapper -->
+    <div class="password-wrapper">
+      <input
+        type="password"
+        name="password"
+        id="passwordInput"
+        placeholder="Password"
+        required
+        oninput="checkStrength(this.value)"
+      >
+      <span class="eye" id="eyeToggle" onclick="togglePassword()"></span>
+    </div>
+    <!-- ✅ END ADDED -->
 
     <div class="strength" id="strengthText"></div>
 
