@@ -1,53 +1,16 @@
-const toggle = document.getElementById("toggle");
-const authBox = document.getElementById("authBox");
-const spotlight = document.getElementById("spotlight");
-
-const form = document.getElementById("authForm");
-const title = document.getElementById("title");
-const submitBtn = document.getElementById("submitBtn");
-const modeBtn = document.getElementById("modeBtn");
-const strengthText = document.getElementById("strengthText");
-
-let isOn = false;
 let isRegister = false;
 
-/* Toggle popup + spotlight */
-toggle.onclick = () => {
-    isOn = !isOn;
-    
-    toggle.classList.toggle("on");
-    authBox.classList.toggle("show");
-
-    spotlight.classList.toggle("active", isOn);
-};
-
-/* Switch Login ↔ Register */
 function switchMode() {
     isRegister = !isRegister;
-
-    if (isRegister) {
-        title.innerText = "Register";
-        submitBtn.innerText = "Create Account";
-        form.action = "/register";
-        modeBtn.innerText = "Back to Login";
-    } else {
-        title.innerText = "Login";
-        submitBtn.innerText = "Login";
-        form.action = "/login";
-        modeBtn.innerText = "Register";
-    }
+    document.getElementById("title").innerText = isRegister ? "Register" : "Login";
+    document.getElementById("submitBtn").innerText = isRegister ? "Create" : "Login";
+    document.getElementById("authForm").action = isRegister ? "/register" : "/login";
+    document.getElementById("modeBtn").innerText = isRegister ? "Back to Login" : "Register";
 }
 
-/* Password strength */
 function checkStrength(pwd) {
-    if (pwd.length < 4) {
-        strengthText.innerText = "Weak";
-        strengthText.style.color = "red";
-    } else if (pwd.length < 8) {
-        strengthText.innerText = "Medium";
-        strengthText.style.color = "orange";
-    } else {
-        strengthText.innerText = "Strong";
-        strengthText.style.color = "lightgreen";
-    }
+    let s = document.getElementById("strengthText");
+    if (pwd.length < 4) s.innerText = "Weak";
+    else if (pwd.length < 8) s.innerText = "Medium";
+    else s.innerText = "Strong";
 }

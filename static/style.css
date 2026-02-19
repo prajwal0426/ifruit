@@ -178,3 +178,33 @@ body {
     color: red;
     margin-top: 10px;
 }
+
+ 
+/* Header profile */
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.avatar-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #ffcc00;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+

@@ -1,5 +1,6 @@
 import sqlite3
 
+
 # Connect to database (creates file if not exists)
 conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
@@ -29,3 +30,4 @@ conn.commit()
 conn.close()
 
 print("✅ Database initialized successfully")
+  
