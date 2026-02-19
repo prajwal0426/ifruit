@@ -1,34 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>iFruit Login</title>
-<link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>iFruit | Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
+<!-- Spotlight -->
 <div id="spotlight"></div>
 
-<div class="card">
-  <h2>Login</h2>
-  <form action="/login" method="post">
-    <input name="username" placeholder="Username" required>
-    <input name="password" type="password" placeholder="Password" required>
-    <button>Login</button>
-  </form>
+<div class="auth-card">
 
-  <button onclick="toggleRegister()">Register</button>
+  <!-- LOGIN -->
+  <div id="loginBox">
+    <h2>Login</h2>
 
-  <a href="/login/google" class="google">Sign in with Google</a>
+    <form action="/login" method="post">
+      <input name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
 
-  {% if error %}<p class="error">{{error}}</p>{% endif %}
+    <button class="secondary" onclick="openRegister()">Register</button>
 
-  <form id="registerForm" action="/register" method="post" hidden>
-    <input name="username" placeholder="New username">
-    <input name="password" type="password" placeholder="New password">
-    <button>Create Account</button>
-  </form>
+    <a href="/login/google" class="google-btn">Sign in with Google</a>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  </div>
+
+  <!-- REGISTER POPUP -->
+  <div id="registerBox" class="hidden">
+    <h2>Create Account</h2>
+
+    <form action="/register" method="post">
+      <input name="username" placeholder="New username" required>
+      <input type="password" name="password" placeholder="New password" required>
+      <button type="submit">Create Account</button>
+    </form>
+
+    <button class="secondary" onclick="closeRegister()">Back to Login</button>
+  </div>
+
 </div>
 
-<script src="/static/auth.js"></script>
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
 </body>
 </html>
