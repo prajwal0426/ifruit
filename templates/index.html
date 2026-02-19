@@ -20,21 +20,30 @@
     <h2 id="title">Login</h2>
 
     <form id="authForm" method="POST" action="/login">
-        <input type="text" name="username" placeholder="Username" required>
 
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               required
-               oninput="checkStrength(this.value)">
+    <input type="text" name="username" placeholder="Username" required>
 
-        <div class="strength" id="strengthText"></div>
+    <input type="password"
+           name="password"
+           placeholder="Password"
+           required
+           oninput="checkStrength(this.value)">
 
-        <div class="actions">
-            <button type="submit" class="login-btn">Login</button>
-            <button type="button" class="register-btn" onclick="switchMode()">Register</button>
-        </div>
-    </form>
+    <div class="strength" id="strengthText"></div>
+
+    <div class="actions">
+        <button type="submit" id="submitBtn" class="login-btn">
+            Login
+        </button>
+
+        <button type="button"
+                id="modeBtn"
+                class="register-btn"
+                onclick="switchMode()">
+            Register
+        </button>
+    </div>
+</form>
 
     <a href="/login/google" class="google-btn">
         <img src="https://developers.google.com/identity/images/g-logo.png">
