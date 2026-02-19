@@ -14,3 +14,6 @@ function checkStrength(pwd) {
     else if (pwd.length < 8) s.innerText = "Medium";
     else s.innerText = "Strong";
 }
+function toggleRegister() {
+  document.getElementById("registerForm").toggleAttribute("hidden");
+}
