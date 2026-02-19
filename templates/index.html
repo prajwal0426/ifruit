@@ -1,40 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>iFruit | Login</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>iFruit | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<!-- TRIANGLE LIGHT -->
+<!-- 🔺 SMOOTH TRIANGLE LIGHT -->
 <div id="spotlight"></div>
 
-<!-- LOGIN BOX -->
-<div class="login-box" id="loginBox">
-  <h2>Login</h2>
+<!-- 📦 LOGIN / REGISTER BOX -->
+<div class="auth-box" id="authBox">
 
-  <form action="/login" method="post">
+  <h2 id="formTitle">Login</h2>
+
+  <!-- LOGIN FORM -->
+  <form id="loginForm" action="/login" method="post">
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
+
+    <div class="btn-row">
+      <button type="submit">Login</button>
+      <button type="button" onclick="showRegister()">Register</button>
+    </div>
   </form>
 
-  <button class="register-btn" onclick="toggleRegister()">Register</button>
+  <!-- REGISTER FORM -->
+  <form id="registerForm" action="/register" method="post">
+    <input type="text" name="username" placeholder="New Username" required>
+    <input type="password" name="password" placeholder="New Password" required>
 
-  <a href="/login/google" class="google-btn">Sign in with Google</a>
+    <div class="btn-row">
+      <button type="submit">Create</button>
+      <button type="button" onclick="showLogin()">Back</button>
+    </div>
+  </form>
+
+  <!-- GOOGLE LOGIN -->
+  <a href="/login/google" class="google-btn">
+    <img src="https://developers.google.com/identity/images/g-logo.png">
+    Sign in with Google
+  </a>
 
   {% if error %}
     <p class="error">{{ error }}</p>
   {% endif %}
 </div>
 
-<!-- ON / OFF BUTTON -->
-<div id="lightSwitch" class="switch">
+<!-- 🔘 SWITCH (BOTTOM RIGHT) -->
+<div class="switch" id="lightSwitch">
   <div class="knob"></div>
 </div>
 
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
-
 </body>
 </html>
