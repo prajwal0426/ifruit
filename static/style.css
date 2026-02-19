@@ -1,210 +1,31 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
-    margin: 0;
-    height: 100vh;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  background:black;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-/* 🌟 Yellow triangle spotlight */
-/* 🌟 Spotlight hidden by default */
-.spotlight {
-    position: absolute;
-    top: -40%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 204, 0, 0.45),
-        rgba(255, 204, 0, 0.08),
-        transparent
-    );
-    clip-path: polygon(50% 0%, 70% 100%, 30% 100%);
-    display: none;              /* 🔥 KEY FIX */
-    animation: glow 3s infinite alternate;
-    pointer-events: none;
+#spotlight {
+  position:fixed;
+  top:0;
+  width:100%;
+  height:50vh;
+  background:linear-gradient(transparent, rgba(255,200,0,0.4));
+  pointer-events:none;
 }
 
-/* 🌟 Spotlight ON */
-.spotlight.active {
-    display: block;
+.card {
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:12px;
 }
 
-
-
-@keyframes glow {
-    from { opacity: 0.6; }
-    to { opacity: 1; }
+input, button {
+  width:100%;
+  margin:8px 0;
+  padding:10px;
 }
-
-/* Toggle */
-.switch {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: white;
-    border-radius: 25px;
-    padding: 8px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.switch span {
-    display: block;
-    width: 40px;
-    height: 20px;
-    background: #777;
-    border-radius: 20px;
-    position: relative;
-}
-
-.switch span::after {
-    content: "";
-    width: 18px;
-    height: 18px;
-    background: black;
-    border-radius: 50%;
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    transition: 0.3s;
-}
-
-.switch.on span {
-    background: #ffcc00;
-}
-
-.switch.on span::after {
-    left: 21px;
-}
-
-/* Glass Card */
-.auth-box {
-    width: 90%;
-    max-width: 340px;
-    padding: 25px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    color: white;
-    text-align: center;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: 0.5s ease;
-    z-index: 2;
-}
-
-.auth-box.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.auth-box h2 {
-    margin-bottom: 15px;
-}
-
-/* Inputs */
-.auth-box input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: rgba(255,255,255,0.15);
-    border: none;
-    border-radius: 6px;
-    color: white;
-    outline: none;
-}
-
-/* Password strength */
-.strength {
-    font-size: 12px;
-    height: 16px;
-    margin-bottom: 10px;
-}
-
-/* Buttons */
-.actions {
-    display: flex;
-    gap: 10px;
-}
-
-.actions button {
-    flex: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-}
-
-.login-btn {
-    background: #ffcc00;
-    color: black;
-}
-
-.register-btn {
-    background: transparent;
-    border: 1px solid #ffcc00;
-    color: #ffcc00;
-}
-
-/* Google */
-.google-btn {
-    margin-top: 15px;
-    padding: 10px;
-    background: white;
-    color: black;
-    border-radius: 6px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.google-btn img {
-    height: 16px;
-}
-
-/* Error */
-.error {
-    color: red;
-    margin-top: 10px;
-}
-
- 
-/* Header profile */
-.profile-mini {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: white;
-}
-
-.avatar-img {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.avatar-circle {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #ffcc00;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
