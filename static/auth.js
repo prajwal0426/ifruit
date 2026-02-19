@@ -1,18 +1,19 @@
 const spotlight = document.getElementById("spotlight");
-const loginBox = document.getElementById("loginBox");
-const registerBox = document.getElementById("registerBox");
+const lightSwitch = document.getElementById("lightSwitch");
 
-// spotlight ON only when page loads
-window.onload = () => {
-  spotlight.classList.add("on");
+let lightOn = false;
+
+/* TOGGLE LIGHT */
+lightSwitch.onclick = () => {
+  lightOn = !lightOn;
+  lightSwitch.classList.toggle("on");
+  spotlight.classList.toggle("on");
 };
 
-function openRegister() {
-  loginBox.classList.add("hidden");
-  registerBox.classList.remove("hidden");
-}
-
-function closeRegister() {
-  registerBox.classList.add("hidden");
-  loginBox.classList.remove("hidden");
+/* AUTO TURN OFF IF ERROR EXISTS */
+const error = document.querySelector(".error");
+if (error) {
+  spotlight.classList.remove("on");
+  lightSwitch.classList.remove("on");
+  lightOn = false;
 }
