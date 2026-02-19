@@ -1,19 +1,20 @@
-# Dark Login UI Project 🌙💡
+# Dark Login UI Project 
 
 A stylish dark-themed login interface with a toggle switch that reveals
 a spotlighted login box. Only the login area is visible while the rest
 of the screen remains dark.
 
-## 🔥 Features
+##  Features
 - Black screen by default
 - ON/OFF toggle switch
 - Spotlight effect for login area
 - Accepts any username
-- Fixed password authentication
+- Accepts any password 
+- And google login is avlibale
 - Redirects to a welcome page after login
 
 
-## 📁 Project Structure
+##  Project Structure
 
 ## ▶ How to Run
 1. Open `index.html` in your browser  
@@ -27,7 +28,7 @@ of the screen remains dark.
 - CSS
 - JavaScript
 
-## 🚀 Future Improvements
+##  Future Improvements
 - Backend authentication with Python (Flask)
 - Session handling
 - Database integration

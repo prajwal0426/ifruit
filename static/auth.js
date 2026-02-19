@@ -1,5 +1,6 @@
 const toggle = document.getElementById("toggle");
 const authBox = document.getElementById("authBox");
+const spotlight = document.getElementById("spotlight");
 const form = document.getElementById("authForm");
 const title = document.getElementById("title");
 const strengthText = document.getElementById("strengthText");
@@ -7,11 +8,17 @@ const strengthText = document.getElementById("strengthText");
 let isOn = false;
 let isRegister = false;
 
-/* Toggle popup */
+/* Toggle popup + spotlight */
 toggle.onclick = () => {
     isOn = !isOn;
     toggle.classList.toggle("on");
     authBox.classList.toggle("show");
+
+    if (isOn) {
+        spotlight.style.opacity = "1";   // 🔆 show light
+    } else {
+        spotlight.style.opacity = "0";   // 🌑 hide light
+    }
 };
 
 /* Switch login/register */
