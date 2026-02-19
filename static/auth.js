@@ -1,22 +1,38 @@
 const spotlight = document.getElementById("spotlight");
 const switchBtn = document.getElementById("lightSwitch");
-const loginBox = document.getElementById("loginBox");
+const authBox = document.getElementById("authBox");
+
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const title = document.getElementById("formTitle");
 
 let isOn = false;
 
 switchBtn.onclick = () => {
   isOn = !isOn;
-
   switchBtn.classList.toggle("on");
   spotlight.classList.toggle("on");
-  loginBox.classList.toggle("show");
+  authBox.classList.toggle("show");
 };
 
-/* AUTO TURN OFF IF ERROR */
+/* REGISTER TOGGLE */
+function showRegister() {
+  loginForm.style.display = "none";
+  registerForm.style.display = "block";
+  title.innerText = "Register";
+}
+
+function showLogin() {
+  registerForm.style.display = "none";
+  loginForm.style.display = "block";
+  title.innerText = "Login";
+}
+
+/* AUTO OFF ON ERROR */
 const error = document.querySelector(".error");
 if (error) {
   spotlight.classList.remove("on");
   switchBtn.classList.remove("on");
-  loginBox.classList.remove("show");
+  authBox.classList.remove("show");
   isOn = false;
 }
