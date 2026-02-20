@@ -184,26 +184,37 @@ body {
   position: relative;
 }
 
-/* eye icon */
+/* 👁️ Password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+/* Eye base */
 .eye {
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1);
   width: 22px;
   height: 22px;
   cursor: pointer;
-  opacity: 0.8;
   background-size: contain;
   background-repeat: no-repeat;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* 🙈 eye closed (default) */
+/* 🙈 Closed eye */
 .eye.closed {
   background-image: url("https://cdn-icons-png.flaticon.com/512/159/159604.png");
 }
 
-/* 👁️ eye open */
+/* 👁️ Open eye */
 .eye.open {
   background-image: url("https://cdn-icons-png.flaticon.com/512/159/159078.png");
+}
+
+/* ✨ Animate when toggling */
+.eye.animate {
+  transform: translateY(-50%) scale(0.8);
+  opacity: 0.5;
 }
