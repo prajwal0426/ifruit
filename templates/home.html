@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>iFruit | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="home-body">
 
-<div class="profile-btn" onclick="location.href='/profile'">
-  {{ user.username[:7] }}
+<!-- 👤 PROFILE (TOP LEFT) -->
+<a href="/profile" class="profile-mini">
+  {% if user.avatar %}
+    <img src="/uploads/{{ user.avatar }}" class="avatar-img">
+  {% else %}
+    <div class="avatar-circle">
+      {{ user.username[:7] }}
+    </div>
+  {% endif %}
+</a>
+
+<!-- 🏠 MAIN CONTENT -->
+<div class="home-content">
+  <h1>Welcome, {{ user.username }}</h1>
+  <p>You have successfully logged in.</p>
+
+  <a href="/logout" class="logout-btn">Logout</a>
 </div>
-
-<h1>Welcome {{ user.username }}</h1>
-<a href="/logout">Logout</a>
 
 </body>
 </html>
