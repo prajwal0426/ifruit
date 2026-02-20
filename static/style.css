@@ -218,3 +218,63 @@ body {
   transform: translateY(-50%) scale(0.8);
   opacity: 0.5;
 }
+/* ================= HOME PAGE ================= */
+
+.home-body {
+  margin: 0;
+  height: 100vh;
+  background: #000;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Profile mini (top-left) */
+.profile-mini {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.avatar-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffcc00;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* Main content */
+.home-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logout-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #ffcc00;
+  color: black;
+  border-radius: 6px;
+  text-decoration: none;
+}
