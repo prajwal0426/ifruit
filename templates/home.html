@@ -6,26 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body class="home-body">
 
-<!-- 👤 PROFILE (TOP LEFT) -->
-<a href="/profile" class="profile-mini">
-  {% if user.avatar %}
-    <img src="/uploads/{{ user.avatar }}" class="avatar-img">
-  {% else %}
-    <div class="avatar-circle">
-      {{ user.username[:7] }}
-    </div>
-  {% endif %}
-</a>
+<!-- ================= HEADER ================= -->
+<header class="home-header">
 
-<!-- 🏠 MAIN CONTENT -->
-<div class="home-content">
+  <!-- Profile (left) -->
+  <a href="/profile" class="profile-mini">
+    {% if user.avatar %}
+      <img src="/uploads/{{ user.avatar }}" class="avatar-img">
+    {% else %}
+      <div class="avatar-circle">
+        {{ user.username[:7] }}
+      </div>
+    {% endif %}
+    <span class="profile-name">{{ user.username[:7] }}</span>
+  </a>
+
+  <!-- Nav (right) -->
+  <nav class="header-nav">
+    <a href="/home">Home</a>
+    <a href="/profile">Profile</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="home-content">
   <h1>Welcome, {{ user.username }}</h1>
   <p>You have successfully logged in.</p>
+</main>
 
-  <a href="/logout" class="logout-btn">Logout</a>
-</div>
+<!-- ================= FOOTER ================= -->
+<footer class="home-footer">
+  <p>© 2026 iFruit. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
