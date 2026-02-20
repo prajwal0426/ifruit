@@ -222,42 +222,90 @@ body {
 
 .home-body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: #000;
   color: white;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Profile mini (top-left) */
+/* ---------- HEADER ---------- */
+.home-header {
+  height: 60px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Profile (left) */
 .profile-mini {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 10;
+  text-decoration: none;
+  color: white;
 }
 
 .avatar-img {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .avatar-circle {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #ffcc00;
+  background: #f8f7f7;
   color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 13px;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Header nav (right) */
+.header-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+.header-nav a:hover {
+  color: #ffcc00;
+}
+
+/* ---------- MAIN ---------- */
+.home-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ---------- FOOTER ---------- */
+.home-footer {
+  height: 45px;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #aaa;
 }
 
 /* Main content */
