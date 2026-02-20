@@ -65,17 +65,24 @@ if (error) {
 const passwordInput = document.getElementById("passwordInput");
 const eyeToggle = document.getElementById("eyeToggle");
 
-// default state
-eyeToggle.classList.add("closed");
+
 
 function togglePassword() {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    eyeToggle.classList.remove("closed");
-    eyeToggle.classList.add("open");
-  } else {
-    passwordInput.type = "password";
-    eyeToggle.classList.remove("open");
-    eyeToggle.classList.add("closed");
-  }
+  // add animation class
+  eyeToggle.classList.add("animate");
+
+  setTimeout(() => {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeToggle.classList.remove("closed");
+      eyeToggle.classList.add("open");
+    } else {
+      passwordInput.type = "password";
+      eyeToggle.classList.remove("open");
+      eyeToggle.classList.add("closed");
+    }
+
+    // remove animation class
+    eyeToggle.classList.remove("animate");
+  }, 150);
 }
