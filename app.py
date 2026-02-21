@@ -203,9 +203,9 @@ def update_profile():
     if "user_id" not in session:
         return redirect("/")
 
-    mobile = request.form.get("mobile", "")
-    dob = request.form.get("dob", "")
-    address = request.form.get("address", "")
+    mobile = request.form.get("mobile")
+    dob = request.form.get("dob")
+    address = request.form.get("address")
 
     db = get_db()
     db.execute("""
@@ -213,9 +213,9 @@ def update_profile():
         SET mobile = ?, dob = ?, address = ?
         WHERE id = ?
     """, (mobile, dob, address, session["user_id"]))
-    db.commit()
-    db.close()
 
+    db.commit()
+   
     return redirect("/profile")
 
 # ---------------- Logout ----------------
