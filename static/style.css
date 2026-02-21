@@ -237,11 +237,17 @@ body {
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* LEFT + RIGHT */
   padding: 0 20px;
 }
 
-/* Profile (left) */
+/* LEFT SIDE WRAPPER */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Profile (avatar + name) */
 .profile-mini {
   display: flex;
   align-items: center;
@@ -250,6 +256,7 @@ body {
   color: white;
 }
 
+/* Avatar image */
 .avatar-img {
   width: 40px;
   height: 40px;
@@ -257,11 +264,12 @@ body {
   object-fit: cover;
 }
 
+/* Avatar letter circle */
 .avatar-circle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #f8f7f7;
+  background: #ffcc00;
   color: black;
   display: flex;
   align-items: center;
@@ -270,12 +278,14 @@ body {
   font-size: 13px;
 }
 
+/* Username text */
 .profile-name {
   font-size: 14px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
-/* Header nav (right) */
+/* RIGHT NAV */
 .header-nav a {
   margin-left: 20px;
   text-decoration: none;
