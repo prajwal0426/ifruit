@@ -24,7 +24,7 @@ def get_db():
     return conn
 
 # -------------------------------------------------
-# Initialize database (important for Render)
+# Initialize database (Render-safe)
 # -------------------------------------------------
 def init_db():
     db = get_db()
@@ -42,6 +42,7 @@ def init_db():
         )
     """)
     db.commit()
+    db.close()
 
 init_db()
 
@@ -82,11 +83,11 @@ def register():
             (username, password)
         )
         db.commit()
+        session["user_id"] = cursor.lastrowid
     except sqlite3.IntegrityError:
         return render_template("index.html", error="User already exists")
-
-    user_id = cursor.lastrowid
-    session["user_id"] = user_id
+    finally:
+        db.close()
 
     return redirect("/home")
 
@@ -101,6 +102,7 @@ def login():
         "SELECT * FROM users WHERE username = ? AND password = ?",
         (username, password)
     ).fetchone()
+    db.close()
 
     if not user:
         return render_template("index.html", error="Invalid username or password")
@@ -147,11 +149,11 @@ def google_callback():
             avatar
         ))
         db.commit()
-        user_id = cursor.lastrowid
+        session["user_id"] = cursor.lastrowid
     else:
-        user_id = user["id"]
+        session["user_id"] = user["id"]
 
-    session["user_id"] = user_id
+    db.close()
     return redirect("/home")
 
 # ---------------- Home ----------------
@@ -165,14 +167,16 @@ def home():
         "SELECT * FROM users WHERE id = ?",
         (session["user_id"],)
     ).fetchone()
+    db.close()
 
     if not user:
+        session.clear()
         return redirect("/")
 
     return render_template(
         "home.html",
         user=user,
-        short_name=user["username"][:7]
+        short_name=user["username"][:7] if user["username"] else ""
     )
 
 # ---------------- Profile ----------------
@@ -186,6 +190,10 @@ def profile():
         "SELECT * FROM users WHERE id = ?",
         (session["user_id"],)
     ).fetchone()
+    db.close()
+
+    if not user:
+        return redirect("/")
 
     return render_template("profile.html", user=user)
 
@@ -195,9 +203,9 @@ def update_profile():
     if "user_id" not in session:
         return redirect("/")
 
-    mobile = request.form.get("mobile")
-    dob = request.form.get("dob")
-    address = request.form.get("address")
+    mobile = request.form.get("mobile", "")
+    dob = request.form.get("dob", "")
+    address = request.form.get("address", "")
 
     db = get_db()
     db.execute("""
@@ -205,8 +213,9 @@ def update_profile():
         SET mobile = ?, dob = ?, address = ?
         WHERE id = ?
     """, (mobile, dob, address, session["user_id"]))
-
     db.commit()
+    db.close()
+
     return redirect("/profile")
 
 # ---------------- Logout ----------------
@@ -220,4 +229,4 @@ def logout():
 # -------------------------------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)

@@ -12,34 +12,12 @@
     <h2>Profile Details</h2>
 
     <form action="/profile/update" method="POST">
+    <input type="text" name="mobile" placeholder="Mobile Number">
+    <input type="date" name="dob">
+    <textarea name="address" placeholder="Address"></textarea>
 
-      <div class="profile-row">
-        <label>Username</label>
-        <input type="text" value="{{ user.username }}" disabled>
-      </div>
-
-      <div class="profile-row">
-        <label>Email</label>
-        <input type="email" value="{{ user.email }}" disabled>
-      </div>
-
-      <div class="profile-row">
-        <label>Mobile Number</label>
-        <input type="text" name="mobile" value="{{ user.mobile or '' }}">
-      </div>
-
-      <div class="profile-row">
-        <label>Date of Birth</label>
-        <input type="date" name="dob" value="{{ user.dob or '' }}">
-      </div>
-
-      <div class="profile-row">
-        <label>Address</label>
-        <textarea name="address">{{ user.address or '' }}</textarea>
-      </div>
-
-      <button type="submit" class="save-btn">Save Profile</button>
-    </form>
+    <button type="submit">Save</button>
+</form>
   </div>
 
 </body>
