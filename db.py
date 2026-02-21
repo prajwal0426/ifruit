@@ -1,11 +1,8 @@
 import sqlite3
 
-
-# Connect to database (creates file if not exists)
 conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
 
-# Create users table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,11 +14,10 @@ CREATE TABLE IF NOT EXISTS users (
     mobile TEXT,
     dob TEXT,
     address TEXT
-);
+)
 """)
 
 conn.commit()
 conn.close()
 
-print("✅ Database initialized successfully")
-  
+print("Database updated successfully")
