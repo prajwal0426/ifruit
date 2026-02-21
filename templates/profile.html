@@ -1,21 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="profile-page">
 
-<h2>Profile</h2>
+  <!-- Floating Profile Card -->
+  <div class="profile-card">
+    <h2>Profile Details</h2>
 
-<form action="/profile/update" method="post" enctype="multipart/form-data">
-  <input name="mobile" placeholder="Mobile" value="{{user.mobile}}">
-  <input name="dob" type="date" value="{{user.dob}}">
-  <textarea name="address">{{user.address}}</textarea>
-  <input type="file" name="avatar">
-  <button>Save</button>
-</form>
+    <form action="/profile/update" method="POST">
 
-<a href="/home">Back</a>
+      <div class="profile-row">
+        <label>Username</label>
+        <input type="text" value="{{ user.username }}" disabled>
+      </div>
+
+      <div class="profile-row">
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" disabled>
+      </div>
+
+      <div class="profile-row">
+        <label>Mobile Number</label>
+        <input type="text" name="mobile" value="{{ user.mobile or '' }}">
+      </div>
+
+      <div class="profile-row">
+        <label>Date of Birth</label>
+        <input type="date" name="dob" value="{{ user.dob or '' }}">
+      </div>
+
+      <div class="profile-row">
+        <label>Address</label>
+        <textarea name="address">{{ user.address or '' }}</textarea>
+      </div>
+
+      <button type="submit" class="save-btn">Save Profile</button>
+    </form>
+  </div>
 
 </body>
 </html>
