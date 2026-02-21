@@ -231,23 +231,36 @@ body {
 }
 
 /* ---------- HEADER ---------- */
+/* ---------- HEADER FIX ---------- */
 .home-header {
+  position: fixed;          /* 🔥 KEY FIX */
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 60px;
-  background: rgba(255,255,255,0.05);
+
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
+
   display: flex;
   align-items: center;
-  justify-content: space-between; /* LEFT + RIGHT */
+  justify-content: space-between;
+
   padding: 0 20px;
+  z-index: 1000;
 }
 
-/* LEFT SIDE WRAPPER */
+/* Push page content below header */
+.home-content {
+  padding-top: 80px;
+}
+
+/* LEFT SIDE */
 .header-left {
   display: flex;
   align-items: center;
 }
 
-/* Profile (avatar + name) */
 .profile-mini {
   display: flex;
   align-items: center;
@@ -256,47 +269,39 @@ body {
   color: white;
 }
 
-/* Avatar image */
-.avatar-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Avatar letter circle */
+/* Avatar */
 .avatar-circle {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: #ffcc00;
   color: black;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-weight: bold;
   font-size: 13px;
 }
 
-/* Username text */
+/* Username */
 .profile-name {
   font-size: 14px;
   font-weight: bold;
-  white-space: nowrap;
 }
 
 /* RIGHT NAV */
 .header-nav a {
   margin-left: 20px;
-  text-decoration: none;
   color: white;
+  text-decoration: none;
   font-size: 14px;
 }
 
 .header-nav a:hover {
   color: #ffcc00;
 }
-
 /* ---------- MAIN ---------- */
 .home-content {
   flex: 1;
