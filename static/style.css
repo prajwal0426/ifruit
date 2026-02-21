@@ -231,9 +231,9 @@ body {
 }
 
 /* ---------- HEADER ---------- */
-/* ---------- HEADER FIX ---------- */
+
 .home-header {
-  position: fixed;          /* 🔥 KEY FIX */
+  position: fixed;          
   top: 0;
   left: 0;
   width: 100%;
@@ -340,4 +340,77 @@ body {
   color: black;
   border-radius: 6px;
   text-decoration: none;
+}
+/* ================= PROFILE PAGE ================= */
+
+.profile-page {
+  margin: 0;
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Floating white card */
+.profile-card {
+  background: #fff;                /* ✅ PURE WHITE */
+  width: 90%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 14px;
+
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+}
+
+/* Title */
+.profile-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+/* Vertical rows */
+.profile-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+/* Labels */
+.profile-row label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+/* Inputs */
+.profile-row input,
+.profile-row textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Disabled fields */
+.profile-row input[disabled] {
+  background: #f2f2f2;
+}
+
+/* Save button */
+.save-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  background: #e6b800;
 }
