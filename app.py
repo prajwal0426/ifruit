@@ -3,6 +3,8 @@ import sqlite3
 import os
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
 
 # -------------------------------------------------
 # Load environment variables
@@ -15,6 +17,12 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
+DEFAULT_AVATAR = "default.png"
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 # -------------------------------------------------
 # Database helper
 # -------------------------------------------------
@@ -22,6 +30,12 @@ def get_db():
     conn = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
     return conn
+
+# -------------------------------------------------
+# File helper
+# -------------------------------------------------
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # -------------------------------------------------
 # Initialize database (Render-safe)
@@ -79,8 +93,8 @@ def register():
     db = get_db()
     try:
         cursor = db.execute(
-            "INSERT INTO users (username, password) VALUES (?, ?)",
-            (username, password)
+            "INSERT INTO users (username, password, avatar) VALUES (?, ?, ?)",
+            (username, password, 'default.png')
         )
         db.commit()
         session["user_id"] = cursor.lastrowid
@@ -127,7 +141,7 @@ def google_callback():
     google_id = user_info.get("id")
     email = user_info.get("email")
     name = user_info.get("name")
-    avatar = user_info.get("picture")
+    avatar = user_info.get("picture") or DEFAULT_AVATAR
 
     if not email:
         return redirect("/")
@@ -176,7 +190,7 @@ def home():
     return render_template(
         "home.html",
         user=user,
-        short_name=user["username"][:7] if user["username"] else ""
+        short_name=(user["username"] or "")[:7]
     )
 
 # ---------------- Profile ----------------
@@ -207,16 +221,64 @@ def update_profile():
     dob = request.form.get("dob")
     address = request.form.get("address")
 
+    avatar_file = request.files.get("avatar")
+    avatar_filename = None
+
+    if avatar_file and allowed_file(avatar_file.filename):
+        filename = secure_filename(avatar_file.filename)
+        avatar_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        avatar_file.save(avatar_path)
+        avatar_filename = filename
+
     db = get_db()
-    db.execute("""
-        UPDATE users
-        SET mobile = ?, dob = ?, address = ?
-        WHERE id = ?
-    """, (mobile, dob, address, session["user_id"]))
+
+    if avatar_filename:
+        db.execute("""
+            UPDATE users
+            SET mobile = ?, dob = ?, address = ?, avatar = ?
+            WHERE id = ?
+        """, (mobile, dob, address, avatar_filename, session["user_id"]))
+    else:
+        db.execute("""
+            UPDATE users
+            SET mobile = ?, dob = ?, address = ?
+            WHERE id = ?
+        """, (mobile, dob, address, session["user_id"]))
 
     db.commit()
-   
+    db.close()
+
     return redirect("/profile")
+
+# ---------------- Avatar Upload ----------------
+@app.route("/profile/avatar", methods=["POST"])
+def upload_avatar():
+    if "user_id" not in session:
+        return redirect("/")
+
+    file = request.files.get("avatar")
+    if not file or file.filename == "":
+        return redirect("/profile")
+
+    if allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filename = f"user_{session['user_id']}_{filename}"
+        path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file.save(path)
+
+        db = get_db()
+        db.execute(
+            "UPDATE users SET avatar = ? WHERE id = ?",
+            (filename, session["user_id"])
+        )
+        db.commit()
+        db.close()
+
+    return redirect("/profile")
+
+@app.route("/uploads/<avatar>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 # ---------------- Logout ----------------
 @app.route("/logout")

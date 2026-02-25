@@ -13,9 +13,14 @@
 <header class="home-header">
   <div class="header-left">
     <a href="/profile" class="profile-mini">
-      <div class="avatar-circle">
-        {{ user.username[:7] }}
-      </div>
+      {% if user.avatar %}
+  <img
+    src="{{ url_for('uploaded_file', filename=user.avatar) }}"
+    class="avatar-circle"
+  >
+{% else %}
+  <div class="avatar-circle">{{ short_name }}</div>
+{% endif %}
       <span class="profile-name"><p>Hello, </p>{{ user.username[:7] }}</span>
     </a>
   </div>

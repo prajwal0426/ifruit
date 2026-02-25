@@ -1,3 +1,5 @@
+/* ================= GLOBAL ================= */
+
 * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
@@ -5,15 +7,14 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
 }
 
-/* 🌟 Yellow triangle spotlight (OFF by default) */
+/* ================= SPOTLIGHT ================= */
+
+/* OFF by default */
 .spotlight {
   position: absolute;
   top: -40%;
@@ -41,7 +42,8 @@ body {
   to { opacity: 1; }
 }
 
-/* 🔘 Toggle switch (bottom-right) */
+/* ================= TOGGLE SWITCH ================= */
+
 .switch {
   position: fixed;
   right: 20px;
@@ -82,8 +84,12 @@ body {
   left: 21px;
 }
 
-/* 🧊 Glass auth card */
+/* ================= AUTH BOX ================= */
+
 .auth-box {
+  position: absolute;
+  inset: 0;
+  margin: auto;
   width: 90%;
   max-width: 340px;
   padding: 25px;
@@ -176,91 +182,78 @@ body {
   margin-top: 10px;
 }
 
-/* ============================= */
-/* ✅ ADDED: 👁️ Password eye wrapper */
-/* ============================= */
+/* ================= PASSWORD EYE ================= */
 
 .password-wrapper {
   position: relative;
 }
 
-/* 👁️ Password wrapper */
-.password-wrapper {
-  position: relative;
-}
 
-/* Eye base */
+
+
 .eye {
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%) scale(1);
+  transform: translateY(-50%);
   width: 22px;
   height: 22px;
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: 0.25s;
 }
 
-/* 🙈 Closed eye */
+
 .eye.closed {
   background-image: url("https://cdn-icons-png.flaticon.com/512/159/159604.png");
 }
 
-/* 👁️ Open eye */
+
 .eye.open {
   background-image: url("https://cdn-icons-png.flaticon.com/512/159/159078.png");
 }
 
-/* ✨ Animate when toggling */
-.eye.animate {
-  transform: translateY(-50%) scale(0.8);
-  opacity: 0.5;
-}
+
 /* ================= HOME PAGE ================= */
 
 .home-body {
-  margin: 0;
+
   min-height: 100vh;
-  background: #000;
-  color: white;
-  font-family: Arial, sans-serif;
+
   display: flex;
   flex-direction: column;
+  color: white;
 }
 
-/* ---------- HEADER ---------- */
-
+/* Header */
 .home-header {
-  position: fixed;          
+  position: fixed;
   top: 0;
-  left: 0;
+
   width: 100%;
   height: 60px;
-
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(10px);
 
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 
+  justify-content: space-between;
+  align-items: center;
   padding: 0 20px;
   z-index: 1000;
 }
 
-/* Push page content below header */
+
 .home-content {
   padding-top: 80px;
-}
-
-/* LEFT SIDE */
-.header-left {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
+/* Avatar */
 .profile-mini {
   display: flex;
   align-items: center;
@@ -269,12 +262,13 @@ body {
   color: white;
 }
 
-/* Avatar */
+
 .avatar-circle {
   width: 42px;
   height: 42px;
   border-radius: 50%;
   background: #ffcc00;
+
   color: black;
 
   display: flex;
@@ -282,37 +276,28 @@ body {
   justify-content: center;
 
   font-weight: bold;
-  font-size: 13px;
+
 }
 
-/* Username */
+
 .profile-name {
   font-size: 14px;
   font-weight: bold;
 }
 
-/* RIGHT NAV */
+/* Nav */
 .header-nav a {
   margin-left: 20px;
   color: white;
   text-decoration: none;
-  font-size: 14px;
+
 }
 
 .header-nav a:hover {
   color: #ffcc00;
 }
-/* ---------- MAIN ---------- */
-.home-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
 
-/* ---------- FOOTER ---------- */
+/* Footer */
 .home-footer {
   height: 45px;
   background: rgba(255,255,255,0.05);
@@ -323,38 +308,22 @@ body {
   color: #aaa;
 }
 
-/* Main content */
-.home-content {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
-.logout-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background: #ffcc00;
-  color: black;
-  border-radius: 6px;
-  text-decoration: none;
-}
 /* ================= PROFILE PAGE ================= */
 
 .profile-page {
-  margin: 0;
+
   min-height: 100vh;
   background: #000;
   display: flex;
-  align-items: center;
+
   justify-content: center;
+  align-items: center;
 }
 
-/* Floating white card */
+
 .profile-card {
-  background: #fff;                /* ✅ PURE WHITE */
+  background: #fff;
   width: 90%;
   max-width: 420px;
   padding: 30px;
@@ -363,54 +332,55 @@ body {
   box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
-/* Title */
+
 .profile-card h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #000;
+
 }
 
-/* Vertical rows */
+
 .profile-row {
   display: flex;
   flex-direction: column;
   margin-bottom: 14px;
 }
 
-/* Labels */
+
 .profile-row label {
   font-size: 13px;
   margin-bottom: 5px;
-  color: #444;
+
 }
 
-/* Inputs */
+
 .profile-row input,
 .profile-row textarea {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-size: 14px;
+
 }
 
-/* Disabled fields */
+
 .profile-row input[disabled] {
   background: #f2f2f2;
 }
 
-/* Save button */
+
 .save-btn {
   width: 100%;
   padding: 12px;
   background: #ffcc00;
-  color: #000;
-  font-weight: bold;
+
   border: none;
   border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-}
 
-.save-btn:hover {
-  background: #e6b800;
+
+
+
+
+
 }
