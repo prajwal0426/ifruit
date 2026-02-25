@@ -6,6 +6,12 @@ const title = document.getElementById("title");
 const submitBtn = document.getElementById("submitBtn");
 const modeBtn = document.getElementById("modeBtn");
 const strengthText = document.getElementById("strengthText");
+const avatarBox = document.getElementById("avatarBox");
+const avatarInput = document.getElementById("avatarInput");
+
+function selectAvatar(path) {
+  avatarInput.value = path;
+}
 
 let isOn = false;
 let isRegister = false;
@@ -22,17 +28,19 @@ toggle.onclick = () => {
 function switchMode() {
   isRegister = !isRegister;
 
-  if (isRegister) {
-    title.innerText = "Register";
-    submitBtn.innerText = "Create Account";
-    form.action = "/register";
-    modeBtn.innerText = "Back to Login";
-  } else {
-    title.innerText = "Login";
-    submitBtn.innerText = "Login";
-    form.action = "/login";
-    modeBtn.innerText = "Register";
-  }
+ if (isRegister) {
+  title.innerText = "Register";
+  submitBtn.innerText = "Create Account";
+  form.action = "/register";
+  modeBtn.innerText = "Back to Login";
+  avatarBox.style.display = "block"; // SHOW AVATARS
+} else {
+  title.innerText = "Login";
+  submitBtn.innerText = "Login";
+  form.action = "/login";
+  modeBtn.innerText = "Register";
+  avatarBox.style.display = "none"; // HIDE AVATARS
+}
 }
 
 /* 🔐 Password strength */

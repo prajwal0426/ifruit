@@ -19,7 +19,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-DEFAULT_AVATAR = "default.png"
+
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -86,15 +86,16 @@ def index():
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
+    avatar = request.form.get("avatar")  # NEW
 
-    if not username or not password:
+    if not username or not password or not avatar:
         return render_template("index.html", error="All fields are required")
 
     db = get_db()
     try:
         cursor = db.execute(
             "INSERT INTO users (username, password, avatar) VALUES (?, ?, ?)",
-            (username, password, 'default.png')
+            (username, password, avatar)
         )
         db.commit()
         session["user_id"] = cursor.lastrowid
@@ -141,7 +142,7 @@ def google_callback():
     google_id = user_info.get("id")
     email = user_info.get("email")
     name = user_info.get("name")
-    avatar = user_info.get("picture") or DEFAULT_AVATAR
+    avatar = user_info.get("picture")
 
     if not email:
         return redirect("/")

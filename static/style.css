@@ -384,3 +384,22 @@ body {
 
 
 }
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.avatar-option {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.avatar-option:hover {
+  border-color: #ffcc00;
+}
