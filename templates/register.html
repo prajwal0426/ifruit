@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="register-page">
+
+<div class="register-card">
+  <h2>Create Account</h2>
+
+  <form method="POST" action="/register">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <p>Select Avatar</p>
+
+    <div class="avatar-grid">
+      {% for i in range(1,53) %}
+        <label>
+          <input type="radio" name="avatar" value="avatars/avatar{{ i }}.png" required hidden>
+          <img src="{{ url_for('static', filename='avatars/avatar' ~ i ~ '.png') }}"
+               class="avatar-option">
+        </label>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="login-btn">Create Account</button>
+  </form>
+
+  <a href="/" class="back-link">← Back to Login</a>
+</div>
+
+</body>
+</html>

@@ -182,6 +182,13 @@ body {
   margin-top: 10px;
 }
 
+/* ================= FIX LOGIN POPUP HEIGHT ================= */
+
+.auth-box {
+  max-height: 420px;     /* keeps popup small */
+  overflow: hidden;     /* prevents stretching */
+}
+
 /* ================= PASSWORD EYE ================= */
 
 .password-wrapper {
@@ -402,4 +409,38 @@ body {
 
 .avatar-option:hover {
   border-color: #ffcc00;
+}
+
+.register-page {
+  min-height: 100vh;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  width: 92%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  padding: 25px;
+  border-radius: 14px;
+  color: white;
+  text-align: center;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #ffcc00;
+  text-decoration: none;
 }

@@ -15,18 +15,7 @@
 <div class="switch" id="toggle">
   <span></span>
 </div>
-<!-- Avatar Selection -->
-<div id="avatarBox" style="display:none">
-  <p>Select Avatar</p>
-  <div class="avatar-grid">
-    {% for i in range(1, 53) %}
-      <img src="{{ url_for('static', filename='avatars/avatar' ~ i ~ '.png') }}"
-           onclick="selectAvatar('avatars/avatar{{ i }}.png')"
-           class="avatar-option">
-    {% endfor %}
-  </div>
-  <input type="hidden" name="avatar" id="avatarInput">
-</div>
+
 <!-- 🧊 Auth Box -->
 <div class="auth-box" id="authBox">
 

@@ -287,6 +287,10 @@ def logout():
     session.clear()
     return redirect("/")
 
+@app.route("/register", methods=["GET"])
+def register_page():
+    return render_template("register.html")
+
 # -------------------------------------------------
 # Run app (Local + Render)
 # -------------------------------------------------
