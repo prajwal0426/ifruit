@@ -146,3 +146,31 @@ function togglePassword() {
     eyeToggle.classList.remove("animate");
   }, 150);
 }
+
+/* ================= REGISTER VALIDATION (ADDED) ================= */
+
+const registerForm = document.querySelector("form[action='/register/save']");
+const avatarRadios = document.querySelectorAll("input[name='avatar']");
+const createBtn = document.querySelector(".login-btn");
+
+if (registerForm) {
+  createBtn.disabled = true;
+  createBtn.style.opacity = "0.5";
+
+  function checkRegisterReady() {
+    const username = registerForm.querySelector("input[name='username']").value.trim();
+    const password = registerForm.querySelector("input[name='password']").value.trim();
+    const avatarSelected = [...avatarRadios].some(r => r.checked);
+
+    if (username && password && avatarSelected) {
+      createBtn.disabled = false;
+      createBtn.style.opacity = "1";
+    } else {
+      createBtn.disabled = true;
+      createBtn.style.opacity = "0.5";
+    }
+  }
+
+  registerForm.addEventListener("input", checkRegisterReady);
+  avatarRadios.forEach(r => r.addEventListener("change", checkRegisterReady));
+}
