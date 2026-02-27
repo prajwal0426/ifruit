@@ -385,69 +385,97 @@ body {
   font-weight: bold;
   cursor: pointer;
 
-
-
-
-
-
-}
-/* ================= ADDED: AVATAR GRID LIMIT (4 ROWS) ================= */
-
-.avatar-grid {
-  max-height: 320px;              /* limits height */
-  overflow-y: auto;               /* scroll if more avatars */
-  padding-right: 6px;
 }
 
-/* ================= ADDED: AVATAR ITEM SELECTION ================= */
+/* ================= REGISTER PAGE (ADDED ONLY) ================= */
 
-.avatar-item {
+.register-page {
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card */
+.register-card {
+  width: 92%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  padding: 25px;
+  border-radius: 14px;
+  color: white;
   text-align: center;
+}
+
+/* Inputs */
+.register-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+/* Avatar grid */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ✅ 4 avatars per row */
+  gap: 14px;
+  margin: 15px 0;
+}
+
+/* Avatar label wrapper */
+.avatar-grid label {
   cursor: pointer;
+  text-align: center;
 }
 
-.avatar-item img {
-  transition: transform 0.25s, box-shadow 0.25s, border 0.25s;
+/* Avatar image */
+.avatar-option {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: 0.25s;
 }
 
-.avatar-item.selected img {
-  border: 3px solid #ffcc00;
-  box-shadow: 0 0 15px rgba(255,204,0,0.8);
-  transform: scale(1.1);
+/* Hover */
+.avatar-grid label:hover .avatar-option {
+  border-color: #ffcc00;
+  transform: scale(1.05);
 }
 
-/* ================= ADDED: AVATAR NAME STYLE ================= */
+/* Selected avatar */
+.avatar-grid input:checked + .avatar-option {
+  border-color: #ffcc00;
+  box-shadow: 0 0 10px rgba(255,204,0,0.6);
+}
 
+/* Avatar name */
 .avatar-name {
+  margin-top: 6px;
   font-size: 12px;
-  margin-top: 5px;
+  
   color: #ddd;
 }
 
-/* ================= ADDED: REGISTER BUTTON STATE ================= */
-
-.login-btn[disabled] {
-  opacity: 0.45;
-  cursor: not-allowed;
+/* Register button */
+.register-card .login-btn {
+  width: 100%;
+  margin-top: 10px;
 }
 
-.login-btn.active {
-  opacity: 1;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(255,204,0,0.6);
+/* Back link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #ffcc00;
+  text-decoration: none;
 }
 
-/* ================= ADDED: SCROLLBAR STYLE (OPTIONAL NICE TOUCH) ================= */
-
-.avatar-grid::-webkit-scrollbar {
-  width: 6px;
-}
-
-.avatar-grid::-webkit-scrollbar-thumb {
-  background: rgba(255,204,0,0.5);
-  border-radius: 4px;
-}
-
-.avatar-grid::-webkit-scrollbar-track {
-  background: transparent;
+.back-link:hover {
+  text-decoration: underline;
 }
