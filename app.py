@@ -5,6 +5,7 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from flask import render_template
 
 # -------------------------------------------------
 # Load environment variables

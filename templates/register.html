@@ -65,18 +65,19 @@
   ] %}
 
   {% for avatar in avatars %}
-    <label>
-      <input type="radio"
-             name="avatar"
-             value="avatars/{{ avatar }}"
-             required
-             hidden>
+  <label>
+    <input type="radio" name="avatar"
+           value="avatars/{{ avatar }}"
+           required hidden>
 
-      <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
-           class="avatar-option"
-           title="{{ avatar.replace('.png','') }}">
-    </label>
-  {% endfor %}
+    <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
+         class="avatar-option">
+
+    <div class="avatar-name">
+      {{ avatar.replace('.png','').replace('_',' ').title() }}
+    </div>
+  </label>
+{% endfor %}
 </div>
 
     <button type="submit" class="login-btn">Create Account</button>
