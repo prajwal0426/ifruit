@@ -12,77 +12,109 @@
 <div class="register-card">
   <h2>Create Account</h2>
 
-  <form method="POST" action="/register/save">
+  <!-- ============================= -->
+  <!-- ✅ ADDED: id for JS hook       -->
+  <!-- ============================= -->
+  <form method="POST" action="/register/save" id="authForm">
+
     <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
+    
+    <!-- ============================= -->
+    <!-- ✅ ADDED: id for JS hook       -->
+    <!-- ============================= -->
+    <input type="password" name="password" placeholder="Password" required id="passwordInput">
 
-  <p>Select Avatar</p>
+    <p>Select Avatar</p>
 
-<div class="avatar-grid">
-  {% set avatars = [
-    'aanya.png',  
-    'aegisprime.png',
-    'aisha.png',
-    'aris.png',
-    'atlasdrive.png',
-    'bastion_x.png',
-    'black_key.png',
-    'colossusai.png',
-    'crypticey.png',
-    'darknode.png',
-    'darkpacket.png',
-    'deadcode.png',
-    'elina.png',
-    'ina.png',
-    'iron_wall.png',
-    'ironsentinel.png',
-    'keira.png',
-    'lily.png',
-    'luma.png',
-    'mavi.png',
-    'maya.png',
-    'mechlord.png',
-    'mia.png',
-    'naina.png',
-    'nULLTRACE.png',
-    'nysa.png',
-    'obsidianlock.png',
-    'omegurd.png',
-    'phantom_cli.png',
-    'pire_wall_x.png',
-    'rose.png',
-    'shadowbit.png',
-    'sofia.png',
-    'steelcore.png',
-    'tunderframe.png',
-    'vortexarmor.png',
-    'warforge.png',
-    'zara.png',
-    'zEROPING.png',
-    'zoya.png'
-  ] %}
+    <!-- ============================= -->
+    <!-- ✅ ADDED: wrapper id for JS    -->
+    <!-- ============================= -->
+    <div class="avatar-grid" id="avatarBox">
 
-  {% for avatar in avatars %}
-  <label>
-    <input type="radio" name="avatar"
-           value="avatars/{{ avatar }}"
-           required hidden>
+      {% set avatars = [
+        'aanya.png',  
+        'aegisprime.png',
+        'aisha.png',
+        'aris.png',
+        'atlasdrive.png',
+        'bastion_x.png',
+        'black_key.png',
+        'colossusai.png',
+        'crypticey.png',
+        'darknode.png',
+        'darkpacket.png',
+        'deadcode.png',
+        'elina.png',
+        'ina.png',
+        'iron_wall.png',
+        'ironsentinel.png',
+        'keira.png',
+        'lily.png',
+        'luma.png',
+        'mavi.png',
+        'maya.png',
+        'mechlord.png',
+        'mia.png',
+        'naina.png',
+        'nULLTRACE.png',
+        'nysa.png',
+        'obsidianlock.png',
+        'omegurd.png',
+        'phantom_cli.png',
+        'pire_wall_x.png',
+        'rose.png',
+        'shadowbit.png',
+        'sofia.png',
+        'steelcore.png',
+        'tunderframe.png',
+        'vortexarmor.png',
+        'warforge.png',
+        'zara.png',
+        'zEROPING.png',
+        'zoya.png'
+      ] %}
 
-    <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
-         class="avatar-option">
+      {% for avatar in avatars %}
+      <label
+        class="avatar-item"
+        data-avatar="avatars/{{ avatar }}"
+        onclick="selectAvatar('avatars/{{ avatar }}')">
 
-    <div class="avatar-name">
-      {{ avatar.replace('.png','').replace('_',' ').title() }}
+        <input type="radio"
+               name="avatar"
+               value="avatars/{{ avatar }}"
+               required hidden>
+
+        <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
+             class="avatar-option">
+
+        <div class="avatar-name">
+          {{ avatar.replace('.png','').replace('_',' ').title() }}
+        </div>
+      </label>
+      {% endfor %}
+
     </div>
-  </label>
-{% endfor %}
-</div>
 
-    <button type="submit" class="login-btn">Create Account</button>
+    <!-- ============================= -->
+    <!-- ✅ ADDED: disabled + id       -->
+    <!-- ============================= -->
+    <button type="submit"
+            class="login-btn"
+            id="registerBtn"
+            disabled>
+      Create Account
+    </button>
+
   </form>
 
   <a href="/" class="back-link">← Back to Login</a>
 </div>
+
+<!-- ============================= -->
+<!-- ✅ ADDED: JS file include     -->
+<!-- ============================= -->
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
 
 </body>
 </html>
