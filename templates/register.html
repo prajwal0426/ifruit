@@ -16,17 +16,67 @@
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
 
-    <p>Select Avatar</p>
+  <p>Select Avatar</p>
 
-    <div class="avatar-grid">
-      {% for i in range(1,53) %}
-        <label>
-          <input type="radio" name="avatar" value="avatars/avatar{{ i }}.png" required hidden>
-          <img src="{{ url_for('static', filename='avatars/avatar' ~ i ~ '.png') }}"
-               class="avatar-option">
-        </label>
-      {% endfor %}
-    </div>
+<div class="avatar-grid">
+  {% set avatars = [
+    'Aanya.png',
+    'aegisprime.png',
+    'Aisha.png',
+    'Aris.png',
+    'atlasdrive.png',
+    'bastion X.png',
+    'BLACKY KEY.png',
+    'colossusai.png',
+    'CRYPTICEY.png',
+    'DARKNODE.png',
+    'DARKPACKET.png',
+    'DEADCODE.png',
+    'Elina.png',
+    'GOST RROT.png',
+    'Ina.png',
+    'iron wall.png.png',
+    'ironsentinel..png',
+    ' Keira.png',
+    'Lilly.png',
+    'Luma.png',
+    'Mavi.png',
+    'Maya.png',
+    'mechlord.png',
+    'Mia.png',
+    'Naina.png',
+    'NULLTRACE.png',
+    'Nysapng',
+    'OBSIDIANLOCK.png',
+    'omegurd.png',
+    'PHANTOM CLI.png',
+    'PIRE WALL X.png',
+    'Rose.png',
+    'SHADOWBIT.png',
+    'Sofia.png',
+    'steelcore.png',
+    'tunderframe.png',
+    'vortexarmor.png',
+    'warforge.png',
+    'Zara.png',
+    'ZEROPING.png',
+    'Zoya.png'
+  ] %}
+
+  {% for avatar in avatars %}
+    <label>
+      <input type="radio"
+             name="avatar"
+             value="avatars/{{ avatar }}"
+             required
+             hidden>
+
+      <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
+           class="avatar-option"
+           title="{{ avatar.replace('.png','') }}">
+    </label>
+  {% endfor %}
+</div>
 
     <button type="submit" class="login-btn">Create Account</button>
   </form>
