@@ -82,28 +82,36 @@ def index():
     return render_template("index.html")
 
 # ---------------- Register ----------------
-@app.route("/register", methods=["POST"])
-def register():
+# ---------------- REGISTER PAGE ----------------
+@app.route("/register", methods=["GET"])
+def register_page():
+    return render_template("register.html")
+
+
+# ---------------- REGISTER SAVE ----------------
+@app.route("/register/save", methods=["POST"])
+def register_save():
     username = request.form.get("username")
     password = request.form.get("password")
-    avatar = request.form.get("avatar")  # NEW
+    avatar = request.form.get("avatar")
 
     if not username or not password or not avatar:
-        return render_template("index.html", error="All fields are required")
+        return render_template("register.html", error="All fields are required")
 
     db = get_db()
     try:
-        cursor = db.execute(
+        cur = db.execute(
             "INSERT INTO users (username, password, avatar) VALUES (?, ?, ?)",
             (username, password, avatar)
         )
         db.commit()
-        session["user_id"] = cursor.lastrowid
+        session["user_id"] = cur.lastrowid
     except sqlite3.IntegrityError:
-        return render_template("index.html", error="User already exists")
-    finally:
+      
         db.close()
+        return render_template("register.html", error="Username already exists")
 
+    db.close()
     return redirect("/home")
 
 # ---------------- Login ----------------
@@ -293,9 +301,7 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/register", methods=["GET"])
-def register_page():
-    return render_template("register.html")
+
 
 # -------------------------------------------------
 # Run app (Local + Render)
