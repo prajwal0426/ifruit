@@ -479,3 +479,33 @@ body {
 .back-link:hover {
   text-decoration: underline;
 }
+
+
+/* ================= FIX REGISTER SCROLL (ADDED) ================= */
+
+/* Allow scrolling ONLY on register page */
+.register-page {
+  overflow-y: auto;
+}
+
+/* Keep body locked for login popup */
+body:not(.register-page) {
+  overflow: hidden;
+}
+
+/* Optional: scroll only avatar grid */
+.avatar-grid {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Nice scrollbar (optional, safe) */
+.avatar-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.avatar-grid::-webkit-scrollbar-thumb {
+  background: rgba(255,204,0,0.6);
+  border-radius: 6px;
+}
