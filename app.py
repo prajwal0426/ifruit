@@ -114,12 +114,18 @@ def login():
 
     db = get_db()
     user = db.execute(
-        "SELECT * FROM users WHERE username = ? AND password = ?",
-        (username, password)
+        "SELECT * FROM users WHERE username=?",
+        (username,)
     ).fetchone()
     db.close()
 
+    print("LOGIN DATA:", username, password)
+    print("DB USER:", dict(user) if user else None)
+
     if not user:
+        return render_template("index.html", error="User not found")
+
+    if user["password"] != password:
         return render_template("index.html", error="Invalid username or password")
 
     session["user_id"] = user["id"]
