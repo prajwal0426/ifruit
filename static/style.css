@@ -509,3 +509,12 @@ body:not(.register-page) {
   background: rgba(255,204,0,0.6);
   border-radius: 6px;
 }
+
+.avatar-preview {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffcc00;
+  margin-bottom: 10px;
+}

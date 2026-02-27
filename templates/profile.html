@@ -95,9 +95,19 @@
             <div class="profile-row">
   <label>Avatar</label>
 
-  <img
-    src="{{ url_for('uploaded_file', filename=user.avatar or 'default.png') }}"
-    style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;"
+    {% if user.avatar %}
+  {% if user.avatar.startswith('avatars/') %}
+    <img
+      src="{{ url_for('static', filename=user.avatar) }}"
+      class="avatar-preview"
+    >
+  {% else %}
+    <img
+      src="{{ url_for('uploaded_file', filename=user.avatar) }}"
+      class="avatar-preview"
+    >
+  {% endif %}
+{% endif %}
   >
 
   <input type="file" name="avatar" accept="image/*">
