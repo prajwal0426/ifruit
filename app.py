@@ -4,8 +4,7 @@ import os
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
-
+from flask import send_from_directory   # already present
 
 # -------------------------------------------------
 # Load environment variables
@@ -24,6 +23,10 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# ✅ ADDED: ensure folders exist
+os.makedirs("uploads", exist_ok=True)
+os.makedirs("static/avatars", exist_ok=True)
+
 # -------------------------------------------------
 # Database helper
 # -------------------------------------------------
@@ -39,7 +42,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # -------------------------------------------------
-# Initialize database (Render-safe)
+# Initialize database
 # -------------------------------------------------
 def init_db():
     db = get_db()
@@ -82,7 +85,7 @@ google = oauth.register(
 def index():
     return render_template("index.html")
 
-# ---------------- Register ----------------
+
 # ---------------- REGISTER PAGE ----------------
 @app.route("/register", methods=["GET"])
 def register_page():
@@ -108,14 +111,14 @@ def register_save():
         db.commit()
         session["user_id"] = cur.lastrowid
     except sqlite3.IntegrityError:
-      
+
         db.close()
         return render_template("register.html", error="Username already exists")
 
     db.close()
     return redirect("/home")
 
-# ---------------- Login ----------------
+# ---------------- LOGIN ----------------
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form.get("username")
@@ -128,8 +131,7 @@ def login():
     ).fetchone()
     db.close()
 
-    print("LOGIN DATA:", username, password)
-    print("DB USER:", dict(user) if user else None)
+
 
     if not user:
         return render_template("index.html", error="User not found")
@@ -292,9 +294,15 @@ def upload_avatar():
 
     return redirect("/profile")
 
-@app.route("/uploads/<avatar>")
+# ✅ ADDED: serve uploaded avatars
+@app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+
+# ✅ ADDED: serve static avatars (IMPORTANT)
+@app.route("/static/avatars/<path:filename>")
+def serve_avatars(filename):
+    return send_from_directory("static/avatars", filename)
 
 # ---------------- Logout ----------------
 @app.route("/logout")
@@ -305,7 +313,7 @@ def logout():
 
 
 # -------------------------------------------------
-# Run app (Local + Render)
+# Run app
 # -------------------------------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))

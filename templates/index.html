@@ -1,12 +1,17 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> I ultre </title> | Login</title>
+
+  <!-- ✅ FIXED: broken title tag -->
+  <title>I ultre | Login</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+
+<!-- ✅ ADDED class so CSS activates -->
+<body class="home-body">
 
 <!-- 🔺 Spotlight -->
 <div class="spotlight" id="spotlight"></div>
@@ -21,10 +26,20 @@
 
   <h2 id="title">Login</h2>
 
+  <!-- ✅ ADDED id="authForm" (JS requires it) -->
   <form id="authForm" method="POST" action="/login">
-    <input type="text" name="username" placeholder="Username" required>
 
-    <!-- ✅ ADDED password wrapper -->
+    <!-- ✅ ADDED id so JS can read username -->
+    <input
+      type="text"
+      name="username"
+      id="usernameInput"
+      placeholder="Username"
+      required
+      oninput="checkFormReady && checkFormReady()"
+    >
+
+    <!-- Password -->
     <div class="password-wrapper">
       <input
         type="password"
@@ -32,22 +47,24 @@
         id="passwordInput"
         placeholder="Password"
         required
-        oninput="checkStrength(this.value)"
+        oninput="checkStrength(this.value); checkFormReady && checkFormReady()"
       >
-      <span class="eye" id="eyeToggle" onclick="togglePassword()"></span>
+      <span class="eye closed" id="eyeToggle" onclick="togglePassword()"></span>
     </div>
-    <!-- ✅ END ADDED -->
 
     <div class="strength" id="strengthText"></div>
 
     <div class="actions">
+      <button type="submit" id="submitBtn" class="login-btn">
+        Login
+      </button>
 
-      <button type="submit" id="submitBtn" class="login-btn">Login</button>
-     <button type="button"
+      <button
+        type="button"
         class="register-btn"
         onclick="window.location.href='/register'">
-  Register
-</button>
+        Register
+      </button>
     </div>
   </form>
 
@@ -62,6 +79,7 @@
 
 </div>
 
+<!-- ✅ JS must load AFTER HTML -->
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
 </body>
 </html>
