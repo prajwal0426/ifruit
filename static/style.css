@@ -422,7 +422,7 @@ body {
 /* Avatar grid */
 .avatar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ 4 avatars per row */
+  grid-template-columns: repeat(4, 1fr); /*  4 avatars per row */
   gap: 14px;
   margin: 15px 0;
 }

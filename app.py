@@ -23,7 +23,7 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# ✅ ADDED: ensure folders exist
+#  ADDED: ensure folders exist
 os.makedirs("uploads", exist_ok=True)
 os.makedirs("static/avatars", exist_ok=True)
 
@@ -294,12 +294,12 @@ def upload_avatar():
 
     return redirect("/profile")
 
-# ✅ ADDED: serve uploaded avatars
+#  ADDED: serve uploaded avatars
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
-# ✅ ADDED: serve static avatars (IMPORTANT)
+#  ADDED: serve static avatars (IMPORTANT)
 @app.route("/static/avatars/<path:filename>")
 def serve_avatars(filename):
     return send_from_directory("static/avatars", filename)

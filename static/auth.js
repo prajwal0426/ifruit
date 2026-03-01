@@ -10,12 +10,12 @@ const avatarBox = document.getElementById("avatarBox");
 const avatarInput = document.getElementById("avatarInput");
 
 /* ============================= */
-/* ✅ ADDED: selected avatar var */
+/*  ADDED: selected avatar var */
 /* ============================= */
 let selectedAvatar = null;
 
 /* ============================= */
-/* ✅ ADDED: username input ref  */
+/*  ADDED: username input ref  */
 /* ============================= */
 const usernameInput = document.querySelector('input[name="username"]');
 
@@ -23,7 +23,7 @@ function selectAvatar(path) {
   avatarInput.value = path;
 
   /* ============================= */
-  /* ✅ ADDED: store avatar choice */
+  /*  ADDED: store avatar choice */
   /* ============================= */
   selectedAvatar = path;
   checkFormReady();
@@ -32,7 +32,7 @@ function selectAvatar(path) {
 let isOn = false;
 let isRegister = false;
 
-/* 🔘 Toggle popup + spotlight */
+/*  Toggle popup + spotlight */
 toggle.onclick = () => {
   isOn = !isOn;
   toggle.classList.toggle("on");
@@ -40,7 +40,7 @@ toggle.onclick = () => {
   spotlight.classList.toggle("active", isOn);
 };
 
-/* 🔁 Switch Login ↔ Register */
+/*  Switch Login ↔ Register */
 function switchMode() {
   isRegister = !isRegister;
 
@@ -59,12 +59,12 @@ function switchMode() {
   }
 
   /* ============================= */
-  /* ✅ ADDED: reset button state  */
+  /*  ADDED: reset button state  */
   /* ============================= */
   checkFormReady();
 }
 
-/* 🔐 Password strength */
+/*  Password strength */
 function checkStrength(pwd) {
   if (pwd.length < 4) {
     strengthText.innerText = "Weak";
@@ -78,12 +78,11 @@ function checkStrength(pwd) {
   }
 
   /* ============================= */
-  /* ✅ ADDED: re-check form state */
-  /* ============================= */
+  /*  ADDED: re-check form state */
   checkFormReady();
 }
 
-/* ❌ Auto OFF on error */
+/*  Auto OFF on error */
 const error = document.querySelector(".error");
 if (error) {
   spotlight.classList.remove("active");
@@ -93,8 +92,7 @@ if (error) {
 }
 
 /* ============================= */
-/* ✅ ADDED: form readiness check */
-/* ============================= */
+/*  ADDED: form readiness check */
 function checkFormReady() {
   if (
     isRegister &&
@@ -114,13 +112,11 @@ function checkFormReady() {
 }
 
 /* ============================= */
-/* ✅ ADDED: input listeners     */
-/* ============================= */
+/*  ADDED: input listeners     */
 usernameInput.addEventListener("input", checkFormReady);
 
 /* ============================= */
-/* ✅ ADDED: 👁️ Password toggle */
-/* ============================= */
+/*  ADDED:  Password toggle */
 
 const passwordInput = document.getElementById("passwordInput");
 const eyeToggle = document.getElementById("eyeToggle");

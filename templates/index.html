@@ -3,33 +3,33 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- ✅ FIXED: broken title tag -->
+  <!--  FIXED: broken title tag -->
   <title>I ultre | Login</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<!-- ✅ ADDED class so CSS activates -->
+<!--  ADDED class so CSS activates -->
 <body class="home-body">
 
-<!-- 🔺 Spotlight -->
+<!--  Spotlight -->
 <div class="spotlight" id="spotlight"></div>
 
-<!-- 🔘 Toggle -->
+<!--  Toggle -->
 <div class="switch" id="toggle">
   <span></span>
 </div>
 
-<!-- 🧊 Auth Box -->
+<!--  Auth Box -->
 <div class="auth-box" id="authBox">
 
   <h2 id="title">Login</h2>
 
-  <!-- ✅ ADDED id="authForm" (JS requires it) -->
+  <!--  ADDED id="authForm" (JS requires it) -->
   <form id="authForm" method="POST" action="/login">
 
-    <!-- ✅ ADDED id so JS can read username -->
+    <!--  ADDED id so JS can read username -->
     <input
       type="text"
       name="username"
@@ -79,7 +79,7 @@
 
 </div>
 
-<!-- ✅ JS must load AFTER HTML -->
+<!--  JS must load AFTER HTML -->
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
 </body>
 </html>
