@@ -13,22 +13,19 @@
   <h2>Create Account</h2>
 
   <!-- ============================= -->
-  <!-- ✅ ADDED: id for JS hook       -->
-  <!-- ============================= -->
+  <!-- ADDED: id for JS hook       -->
   <form method="POST" action="/register/save" id="authForm">
 
     <input type="text" name="username" placeholder="Username" required>
     
     <!-- ============================= -->
-    <!-- ✅ ADDED: id for JS hook       -->
-    <!-- ============================= -->
+    <!-- ADDED: id for JS hook       -->
     <input type="password" name="password" placeholder="Password" required id="passwordInput">
 
     <p>Select Avatar</p>
 
     <!-- ============================= -->
-    <!-- ✅ ADDED: wrapper id for JS    -->
-    <!-- ============================= -->
+    <!--  ADDED: wrapper id for JS    -->
     <div class="avatar-grid" id="avatarBox">
 
       {% set avatars = [
@@ -70,7 +67,7 @@
         'vortexarmor.png',
         'warforge.png',
         'zara.png',
-        'zEROPING.png',
+        'zeroping.png',
         'zoya.png'
       ] %}
 
@@ -98,7 +95,6 @@
 
     <!-- ============================= -->
     <!-- ✅ ADDED: disabled + id       -->
-    <!-- ============================= -->
     <button
   type="submit"
   class="login-btn"
@@ -112,8 +108,7 @@
 </div>
 
 <!-- ============================= -->
-<!-- ✅ ADDED: JS file include     -->
-<!-- ============================= -->
+<!-- ADDED: JS file include     -->
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
 
 </body>
