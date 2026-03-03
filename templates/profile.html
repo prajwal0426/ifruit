@@ -1,137 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+    <head>
     <meta charset="UTF-8">
     <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Profile Card */
-        .profile-card {
-            width: 92%;
-            max-width: 420px;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-
-        .profile-card h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #000;
-        }
-
-        /* Labels */
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Inputs */
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 16px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            outline: none;
-        }
-
-        input:disabled {
-            background: #f3f3f3;
-            color: #555;
-            cursor: not-allowed;
-        }
-
-        textarea {
-            resize: none;
-            height: 90px;
-        }
-
-        /* Button */
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #ffcc00;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #e6b800;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="profile-page">
 
-    <div class="profile-card">
-        <h2>Profile Details</h2>
+<div class="spotlight active"></div>
 
-        <form action="/profile/update" method="POST">
-            <div class="profile-row">
-  <label>Avatar</label>
+<div class="auth-box show profile-box">
 
-    {% if user.avatar %}
-  {% if user.avatar.startswith('avatars/') %}
-    <img
-      src="{{ url_for('static', filename=user.avatar) }}"
-      class="avatar-preview"
-    >
-  {% else %}
-    <img
-      src="{{ url_for('uploaded_file', filename=user.avatar) }}"
-      class="avatar-preview"
-    >
+  <h2>Profile</h2>
+
+  <!-- Current Avatar -->
+  {% if user.avatar %}
+    {% if user.avatar.startswith('avatars/') %}
+      <img src="{{ url_for('static', filename=user.avatar) }}"
+           class="avatar-preview">
+    {% else %}
+      <img src="{{ url_for('uploaded_file', filename=user.avatar) }}"
+           class="avatar-preview">
+    {% endif %}
   {% endif %}
-{% endif %}
-  >
 
-  <input type="file" name="avatar" accept="image/*">
+  <!-- Toggle Button -->
+  <button type="button" class="register-btn"
+          onclick="toggleAvatars()">
+      Change Avatar
+  </button>
+
+  <!-- Avatar Selection (Hidden by default) -->
+  <div id="avatarSection" class="avatar-grid profile-avatar-grid">
+    {% for avatar in [
+      'rose.png','shadowbit.png','sofia.png','steelcore.png',
+      'tunderframe.png','vortexarmor.png','warforge.png','zara.png'
+    ] %}
+    <label>
+      <input type="radio" name="avatar_choice"
+             value="avatars/{{ avatar }}" hidden>
+      <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
+           class="avatar-option">
+    </label>
+    {% endfor %}
+  </div>
+
+  <form action="/profile/update" method="POST" enctype="multipart/form-data">
+
+      <input type="file" name="avatar" accept="image/*">
+
+      <input type="text" value="{{ user.username }}" disabled>
+      <input type="email" value="{{ user.email }}" disabled>
+
+      <input type="text" name="mobile"
+             placeholder="Mobile Number"
+             value="{{ user.mobile or '' }}">
+
+      <input type="date" name="dob"
+             value="{{ user.dob or '' }}">
+
+      <textarea name="address"
+                placeholder="Address">{{ user.address or '' }}</textarea>
+
+      <button type="submit" class="login-btn">Save</button>
+
+  </form>
+
 </div>
 
-            <label>Username</label>
-            <input type="text" value="{{ user.username }}" disabled>
-
-            <label>Email</label>
-            <input type="email" value="{{ user.email }}" disabled>
-
-            <label>Mobile Number</label>
-            <input type="text" name="mobile" placeholder="Enter mobile number"
-                   value="{{ user.mobile or '' }}">
-
-            <label>Date of Birth</label>
-            <input type="date" name="dob" value="{{ user.dob or '' }}">
-
-            <label>Address</label>
-            <textarea name="address" placeholder="Enter address">{{ user.address or '' }}</textarea>
-
-            <button type="submit">Save</button>
-        </form>
-    </div>
+<script>
+function toggleAvatars() {
+  const section = document.getElementById("avatarSection");
+  section.classList.toggle("open");
+}
+</script>
 
 </body>
 </html>

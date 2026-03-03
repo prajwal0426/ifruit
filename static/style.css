@@ -517,4 +517,39 @@ body:not(.register-page) {
   object-fit: cover;
   border: 3px solid #ffcc00;
   margin-bottom: 10px;
+} 
+
+/* ================= PROFILE GLASS BOX ================= */
+
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.profile-box {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Avatar circle */
+.avatar-preview {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
+  border: 4px solid #ffcc00;
+}
+
+/* Hidden avatar grid */
+.profile-avatar-grid {
+  display: none;
+  margin-top: 15px;
+}
+
+.profile-avatar-grid.open {
+  display: grid;
 }
