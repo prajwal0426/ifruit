@@ -91,7 +91,7 @@
     <div class="profile-card">
         <h2>Profile Details</h2>
 
-        <form action="/profile/update" method="POST">
+        <form action="/profile/update" method="POST" enctype="multipart/form-data">
             <div class="profile-row">
   <label>Avatar</label>
 
@@ -102,9 +102,8 @@
       class="avatar-preview"
     >
   {% else %}
-    <img
-      src="{{ url_for('uploaded_file', filename=user.avatar) }}"
-      class="avatar-preview"
+   <img src="{{ url_for('uploaded_file', filename=user.avatar) }}?v={{ user.avatar }}"
+     class="avatar-preview">
     >
   {% endif %}
 {% endif %}
