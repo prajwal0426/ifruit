@@ -12,8 +12,9 @@ body {
 }
 
 /* Lock scroll ONLY on login page */
-body:not(.profile-page):not(.home-body) {
-  overflow: hidden;
+.profile-page {
+    min-height: 100vh;
+    overflow-y: auto;
 }
 
 /* ================= SPOTLIGHT ================= */
