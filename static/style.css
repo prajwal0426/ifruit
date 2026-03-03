@@ -480,8 +480,23 @@ body {
 .profile-avatar-grid {
   display: none;
   margin-top: 15px;
+
+  max-height: 180px;   /* small scroll area */
+  overflow-y: auto;
+
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 
 .profile-avatar-grid.open {
   display: grid;
+}
+
+.profile-avatar-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profile-avatar-grid::-webkit-scrollbar-thumb {
+  background: #ffcc00;
+  border-radius: 6px;
 }

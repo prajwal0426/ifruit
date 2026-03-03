@@ -22,9 +22,10 @@
   class="avatar-circle"
 >
   >
+{% if user.avatar.startswith('avatars/') %}
+  <img src="{{ url_for('static', filename=user.avatar) }}" class="avatar-circle">
 {% else %}
-  <img src="{{ url_for('static', filename=user.avatar) }}"
-     style="width:80px;height:80px;border-radius:50%;">
+  <img src="{{ url_for('uploaded_file', filename=user.avatar) }}" class="avatar-circle">
 {% endif %}
       <span class="profile-name"><p>Hello, </p>{{ user.username[:7] }}</span>
     </a>
