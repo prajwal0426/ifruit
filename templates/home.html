@@ -12,23 +12,28 @@
 <!-- ================= HEADER ================= -->
 <header class="home-header">
   <div class="header-left">
-    <a href="/profile" class="profile-mini">
-      {% if user.avatar %}
- <img
-  src="{{
-    user.avatar if user.avatar.startswith('http')
-    else url_for('static', filename=user.avatar)
-  }}"
-  class="avatar-circle"
->
-  >
-{% if user.avatar.startswith('avatars/') %}
-  <img src="{{ url_for('static', filename=user.avatar) }}" class="avatar-circle">
-{% else %}
-  <img src="{{ url_for('uploaded_file', filename=user.avatar) }}" class="avatar-circle">
-{% endif %}
-      <span class="profile-name"><p>Hello, </p>{{ user.username[:7] }}</span>
-    </a>
+  <a href="/profile" class="profile-mini">
+
+  {% if user.avatar %}
+    
+    {% if user.avatar.startswith('avatars/') %}
+      <img src="{{ url_for('static', filename=user.avatar) }}"
+           class="avatar-circle">
+    {% else %}
+      <img src="{{ url_for('uploaded_file', filename=user.avatar) }}"
+           class="avatar-circle">
+    {% endif %}
+
+  {% else %}
+    <div class="avatar-circle">{{ user.username[0] }}</div>
+  {% endif %}
+
+  <span class="profile-name">
+    <p>Hello,</p>
+    {{ user.username[:7] }}
+  </span>
+
+</a>
   </div>
 
   <nav class="header-nav">
