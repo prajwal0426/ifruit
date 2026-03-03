@@ -239,10 +239,14 @@ def update_profile():
     dob = request.form.get("dob")
     address = request.form.get("address")
 
+    # NEW: default avatar selection
+    avatar_choice = request.form.get("avatar_choice")
+
     avatar_file = request.files.get("avatar")
     avatar_filename = None
 
-    if avatar_file and allowed_file(avatar_file.filename):
+    # If user uploaded custom avatar
+    if avatar_file and avatar_file.filename != "" and allowed_file(avatar_file.filename):
         filename = secure_filename(avatar_file.filename)
         avatar_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         avatar_file.save(avatar_path)
@@ -250,12 +254,25 @@ def update_profile():
 
     db = get_db()
 
+    # Priority:
+    # 1️ Uploaded image
+    # 2️ Selected default avatar
+    # 3️ Keep old avatar
+
     if avatar_filename:
         db.execute("""
             UPDATE users
             SET mobile = ?, dob = ?, address = ?, avatar = ?
             WHERE id = ?
         """, (mobile, dob, address, avatar_filename, session["user_id"]))
+
+    elif avatar_choice:
+        db.execute("""
+            UPDATE users
+            SET mobile = ?, dob = ?, address = ?, avatar = ?
+            WHERE id = ?
+        """, (mobile, dob, address, avatar_choice, session["user_id"]))
+
     else:
         db.execute("""
             UPDATE users
