@@ -23,7 +23,7 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# ✅ ADDED: ensure folders exist
+#  ADDED: ensure folders exist
 os.makedirs("uploads", exist_ok=True)
 os.makedirs("static/avatars", exist_ok=True)
 
@@ -244,9 +244,8 @@ def update_profile():
 
     if avatar_file and allowed_file(avatar_file.filename):
         filename = secure_filename(avatar_file.filename)
-        avatar_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        avatar_file.save(avatar_path)
-        avatar_filename = filename
+        avatar_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        avatar_filename = filename  # only filename
 
     db = get_db()
 
@@ -292,14 +291,14 @@ def upload_avatar():
         db.commit()
         db.close()
 
-    return redirect("/profile")
+    return redirect("/home")
 
-# ✅ ADDED: serve uploaded avatars
-@app.route("/uploads/<filename>")
+#  ADDED: serve uploaded avatars
+@app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# ✅ ADDED: serve static avatars (IMPORTANT)
+#  ADDED: serve static avatars (IMPORTANT)
 @app.route("/static/avatars/<path:filename>")
 def serve_avatars(filename):
     return send_from_directory("static/avatars", filename)
