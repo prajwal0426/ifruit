@@ -243,9 +243,9 @@ def update_profile():
     avatar_filename = None
 
     if avatar_file and allowed_file(avatar_file.filename):
-        filename = secure_filename(avatar_file.filename)
-        avatar_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-        avatar_filename = filename  # only filename
+     filename = secure_filename(avatar_file.filename)   # ONLY filename
+    avatar_file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    avatar_filename = filename
 
     db = get_db()
 
@@ -294,6 +294,7 @@ def upload_avatar():
     return redirect("/home")
 
 #  ADDED: serve uploaded avatars
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
