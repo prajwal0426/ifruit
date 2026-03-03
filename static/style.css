@@ -90,19 +90,27 @@ body {
   position: absolute;
   inset: 0;
   margin: auto;
+
   width: 90%;
-  max-width: 340px;
-  padding: 25px;
+  max-width: 320px;   /* smaller width */
+
+  padding: 20px;
+
   border-radius: 14px;
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(14px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+
   color: white;
   text-align: center;
+
   opacity: 0;
   transform: scale(0.9);
   transition: 0.5s ease;
+
   z-index: 2;
+
+  max-height: 420px;   /* limit height */
 }
 
 .auth-box.show {
@@ -116,13 +124,14 @@ body {
 
 .auth-box input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 8px;
+  margin-bottom: 8px;
   background: rgba(255,255,255,0.15);
   border: none;
   border-radius: 6px;
   color: white;
   outline: none;
+  font-size: 14px;
 }
 
 
