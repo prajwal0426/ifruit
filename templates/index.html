@@ -7,79 +7,112 @@
   <title>I ultre | Login</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<!--  ADDED class so CSS activates -->
+
 <body class="home-body">
 
-<!--  Spotlight -->
-<div class="spotlight" id="spotlight"></div>
+<div class="wrap">
 
-<!--  Toggle -->
-<div class="switch" id="toggle">
-  <span></span>
-</div>
+  <!-- LEFT SIDE (YOUR LOGIN FORM) -->
+  <div class="left">
 
-<!--  Auth Box -->
-<div class="auth-box" id="authBox">
+  <!--  Auth Box -->
+  <div class="auth-box" id="authBox">
 
-  <h2 id="title">Login</h2>
+    <h2 id="title">Login</h2>
 
-  <!--  ADDED id="authForm" (JS requires it) -->
-  <form id="authForm" method="POST" action="/login">
+    <!--  ADDED id="authForm" (JS requires it) -->
+    <form id="authForm" method="POST" action="/login">
 
-    <!--  ADDED id so JS can read username -->
-    <input
-      type="text"
-      name="username"
-      id="usernameInput"
-      placeholder="Username"
-      required
-      oninput="checkFormReady && checkFormReady()"
-    >
-
-    <!-- Password -->
-    <div class="password-wrapper">
+      <!--  ADDED id so JS can read username -->
       <input
-        type="password"
-        name="password"
-        id="passwordInput"
-        placeholder="Password"
+        type="text"
+        name="username"
+        id="usernameInput"
+        placeholder="Username"
         required
-        oninput="checkStrength(this.value); checkFormReady && checkFormReady()"
+        oninput="checkFormReady && checkFormReady()"
       >
-      <span class="eye closed" id="eyeToggle" onclick="togglePassword()"></span>
-    </div>
 
-    <div class="strength" id="strengthText"></div>
+      <!-- Password -->
+      <div class="password-wrapper">
+        <input
+          type="password"
+          name="password"
+          id="passwordInput"
+          placeholder="Password"
+          required
+          oninput="checkStrength(this.value); checkFormReady && checkFormReady()"
+        >
+        <span class="eye closed" id="eyeToggle" onclick="togglePassword()"></span>
+      </div>
 
-    <div class="actions">
-      <button type="submit" id="submitBtn" class="login-btn">
-        Login
-      </button>
+      <div class="strength" id="strengthText"></div>
 
-      <button
-        type="button"
-        class="register-btn"
-        onclick="window.location.href='/register'">
-        Register
-      </button>
-    </div>
-  </form>
+      <div class="actions">
+        <button type="submit" id="submitBtn" class="login-btn">
+          Login
+        </button>
 
-  <a href="/login/google" class="google-btn">
-    <img src="https://developers.google.com/identity/images/g-logo.png">
-    Continue with Google
-  </a>
+        <button
+          type="button"
+          class="register-btn"
+          onclick="window.location.href='/register'">
+          Register
+        </button>
+      </div>
 
-  {% if error %}
-    <div class="error">{{ error }}</div>
-  {% endif %}
+    </form>
+
+    <a href="/login/google" class="google-btn">
+      <img src="https://developers.google.com/identity/images/g-logo.png">
+      Continue with Google
+    </a>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+  </div>
+
+  </div>
+
+
+  <!-- RIGHT SIDE (LAMP) -->
+  <div class="right">
+
+    <div class="glow"></div>
+
+    <label class="lamp-label">
+
+      <div class="lamp">
+
+        <div class="lamp-bulb">
+          <div class="filament"></div>
+        </div>
+
+        <div class="neck"></div>
+
+        <div class="base"></div>
+
+        <div class="lamp-caption">
+          Lamp
+        </div>
+
+      </div>
+
+    </label>
+
+  </div>
 
 </div>
+
 
 <!--  JS must load AFTER HTML -->
 <script src="{{ url_for('static', filename='auth.js') }}"></script>
+
 </body>
 </html>

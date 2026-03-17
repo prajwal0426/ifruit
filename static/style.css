@@ -17,6 +17,133 @@ body {
     overflow-y: auto;
 }
 
+/* ================= LAMP LAYOUT ================= */
+
+.wrap {
+  width: 700px;
+  max-width: 92vw;
+  height: 420px;
+  margin: auto;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+/* LEFT SIDE (LOGIN) */
+
+.left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* RIGHT SIDE (LAMP) */
+
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+
+/* ================= LAMP ================= */
+
+.lamp-label {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.lamp {
+  width: 100px;
+  height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.lamp-bulb {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+
+  background: #444;
+
+  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filament {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  opacity: 0.15;
+
+  box-shadow: 0 0 10px rgba(255,204,0,0.5);
+}
+
+.neck {
+  width: 8px;
+  height: 60px;
+
+  background: #666;
+
+  border-radius: 4px;
+}
+
+.base {
+  width: 64px;
+  height: 16px;
+
+  background: #555;
+
+  border-radius: 6px;
+}
+
+.lamp-caption {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  color: #aaa;
+}
+
+
+/* ================= LIGHT GLOW ================= */
+
+.glow {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 50%;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  box-shadow:
+    -120px 0 220px 40px rgba(255,213,74,0.15),
+    -60px 0 120px 20px rgba(255,213,74,0.08) inset;
+}
 
 
 /* ================= AUTH BOX ================= */
