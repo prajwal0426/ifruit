@@ -12,109 +12,113 @@
 
 <body class="home-body">
 
+    <!-- REQUIRED FOR LAMP TOGGLE -->
+    <input id="switch" type="checkbox">
 
+    <div class="wrap">
 
-<!-- REQUIRED FOR LAMP TOGGLE -->
- 
+        <!-- LEFT SIDE (LOGIN FORM) -->
+        <div class="left">
 
-<input id="switch" type="checkbox">
+            <div class="auth-box" id="authBox">
 
-<div class="wrap">
+                <h2 id="title">Login</h2>
 
-  <!-- LEFT SIDE (LOGIN FORM) -->
-  <div class="left">
+                <form id="authForm" method="POST" action="/login">
 
-  <div class="auth-box" id="authBox">
+                    <input
+                        type="text"
+                        name="username"
+                        id="usernameInput"
+                        placeholder="Username"
+                        required
+                        oninput="checkFormReady && checkFormReady()"
+                    >
 
-    <h2 id="title">Login</h2>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            name="password"
+                            id="passwordInput"
+                            placeholder="Password"
+                            required
+                            oninput="checkStrength(this.value); checkFormReady && checkFormReady()"
+                        >
 
-    <form id="authForm" method="POST" action="/login">
+                        <span
+                            class="eye closed"
+                            id="eyeToggle"
+                            onclick="togglePassword()">
+                        </span>
+                    </div>
 
-      <input
-        type="text"
-        name="username"
-        id="usernameInput"
-        placeholder="Username"
-        required
-        oninput="checkFormReady && checkFormReady()"
-      >
+                    <div class="strength" id="strengthText"></div>
 
-      <div class="password-wrapper">
-        <input
-          type="password"
-          name="password"
-          id="passwordInput"
-          placeholder="Password"
-          required
-          oninput="checkStrength(this.value); checkFormReady && checkFormReady()"
-        >
-        <span class="eye closed" id="eyeToggle" onclick="togglePassword()"></span>
-      </div>
+                    <div class="actions">
 
-      <div class="strength" id="strengthText"></div>
+                        <button
+                            type="submit"
+                            id="submitBtn"
+                            class="login-btn">
+                            Login
+                        </button>
 
-      <div class="actions">
+                        <button
+                            type="button"
+                            class="register-btn"
+                            onclick="window.location.href='/register'">
+                            Register
+                        </button>
 
-        <button type="submit" id="submitBtn" class="login-btn">
-          Login
-        </button>
+                    </div>
 
-        <button
-          type="button"
-          class="register-btn"
-          onclick="window.location.href='/register'">
-          Register
-        </button>
+                </form>
 
-      </div>
+                <a href="/login/google" class="google-btn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png">
+                    Continue with Google
+                </a>
 
-    </form>
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
 
-    <a href="/login/google" class="google-btn">
-      <img src="https://developers.google.com/identity/images/g-logo.png">
-      Continue with Google
-    </a>
+            </div>
 
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
-
-  </div>
-
-  </div>
-
-
-  <!-- RIGHT SIDE (LAMP) -->
-  <div class="right">
-
-    <div class="glow"></div>
-
-    <!-- CONNECTED TO SWITCH -->
-    <label for="switch" class="lamp-label">
-
-      <div class="lamp">
-
-        <div class="lamp-bulb">
-          <div class="filament"></div>
         </div>
 
-        <div class="neck"></div>
 
-        <div class="base"></div>
+        <!-- RIGHT SIDE (LAMP) -->
+        <div class="right">
 
-        <div class="lamp-caption">
-          Lamp (click)
+            <div class="glow"></div>
+
+            <!-- CONNECTED TO SWITCH -->
+            <label for="switch" class="lamp-label">
+
+                <div class="lamp">
+
+                    <div class="lamp-bulb">
+                        <div class="filament"></div>
+                    </div>
+
+                    <div class="neck"></div>
+
+                    <div class="base"></div>
+
+                    <div class="lamp-caption">
+                        Lamp (click)
+                    </div>
+
+                </div>
+
+            </label>
+
         </div>
 
-      </div>
+    </div>
 
-    </label>
-
-  </div>
-
-</div>
-
-<script src="{{ url_for('static', filename='auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
 
 </body>
 </html>
