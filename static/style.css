@@ -631,7 +631,39 @@ body {
 /* Make auth box fit left side */
 
 .auth-box {
+
   position: relative;
   inset: auto;
   margin: 0;
+}
+
+/* ================= MOBILE FIX ================= */
+
+@media (max-width: 720px) {
+
+  .wrap{
+    flex-direction: column;
+    height: auto;
+    gap: 30px;
+    padding: 25px;
+  }
+
+  .left,
+  .right{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .auth-box{
+    max-width: 300px;
+  }
+
+  .lamp{
+    transform: scale(0.85);
+  }
+
+  .glow{
+    display: none;
+  }
+
 }
