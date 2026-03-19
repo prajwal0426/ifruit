@@ -631,6 +631,44 @@ body {
   filter: blur(60px);
 }
 
+
+/* ================= LAMP LIGHT TOGGLE ================= */
+
+#switch:checked ~ .wrap .lamp-bulb {
+  background: #ffd54a;
+
+  box-shadow:
+    0 0 60px 18px rgba(255,213,74,0.12),
+    0 0 28px 8px rgba(255,213,74,0.18),
+    inset 0 -6px 12px rgba(0,0,0,0.3);
+
+  transform: translateY(-4px) scale(1.02);
+}
+
+#switch:checked ~ .wrap .filament {
+  opacity: 0.9;
+
+  transform: scale(1.05);
+
+  box-shadow: 0 0 30px rgba(255,213,74,0.8);
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255,255,255,0.9),
+    rgba(255,213,74,0.8)
+  );
+}
+
+/* Background glow when lamp is on */
+
+#switch:checked ~ .wrap .glow {
+  opacity: 1;
+
+  box-shadow:
+    -120px 0 220px 40px rgba(255,213,74,0.15),
+    -60px 0 120px 20px rgba(255,213,74,0.08) inset;
+}
+
 /* Make auth box fit left side */
 
 .auth-box {
