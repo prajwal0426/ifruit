@@ -590,6 +590,9 @@ body {
 
   padding: 40px;
 }
+#switch{
+  display:none;
+}
 
 /* LEFT SIDE */
 
@@ -637,40 +640,7 @@ body {
   margin: 0;
 }
 
-/* ================= LAMP ON EFFECT ================= */
 
-#switch:checked ~ .wrap .lamp-bulb {
-  background: #ffd54a;
-
-  box-shadow:
-    0 0 60px 18px rgba(255,213,74,0.12),
-    0 0 28px 8px rgba(255,213,74,0.18);
-
-  transform: translateY(-4px) scale(1.02);
-}
-
-#switch:checked ~ .wrap .filament {
-  opacity: 0.9;
-
-  box-shadow: 0 0 30px rgba(255,213,74,0.8);
-
-  background: radial-gradient(
-      circle at 30% 30%,
-      rgba(255,255,255,0.9),
-      rgba(255,213,74,0.8)
-  );
-}
-
-/* Background glow */
-
-#switch:checked ~ .wrap .glow {
-
-  opacity: 1;
-
-  box-shadow:
-    -120px 0 220px 40px rgba(255,213,74,0.12),
-    -60px 0 120px 20px rgba(255,213,74,0.08) inset;
-}
 /* ================= MOBILE FIX ================= */
 
 @media (max-width: 720px) {
@@ -700,4 +670,4 @@ body {
     display: none;
   }
 
-}
+} 
